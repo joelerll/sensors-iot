@@ -1,0 +1,79 @@
+Proyecto notas
+
+# Funcionales
+
+Generar reportes visuales
+
+una o mas soluciones almacenadas de datos
+
+consultas ad hoc
+
+reportes diarios, semanales y mensuales
+
+interfaz web para la administración de colecciones de especímenes. 
+
+
+ manera de realizar búsquedas en un registro de resultados de los
+análisis
+
+
+## No funcionales
+
+procesar datos que llegan a gran velocidad
+
+soportar aplicaciones con tiempos de ejecución extremadamente largos
+
+
+
+# Pedir 
+
+diagrama de arquitectura
+
+
+# Partes que necesitan
+
+- aws
+- base de datos en aws
+- Mediciones electricas (reportes diarios y todo).
+- Datos de muestra
+- Mongohh, Mysql, Redis
+
+Datos de clima para 
+
+
+Subir un dia
+4 tipos de medidores que se sensan
+en base a tablas los parametros mas importantes. Ingresar por tipo de dato 
+
+
+Temperatura, planias electricas. 
+Busqueda por usuarios para que puedan ver los consumos
+graficos de consumos
+Tener los datos de las planillas.
+
+
+Resultados parciales (2 de agosto).
+Solo la pagina que puedan ver u
+Login
+Busqueda de usuarios
+Ingresar datos
+admin
+
+
+Temperatura de dos dias datos para centigrados y farengeth
+
+Dos Usuarios: 
+- Admin: la persona
+- con usuario: 
+
+
+filtro por sector
+filtro por usuario
+
+
+
+
+
+
+
+Datos variables de 
