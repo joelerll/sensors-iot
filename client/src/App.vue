@@ -1,29 +1,32 @@
 <template>
   <v-app>
-    <!-- <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark v-show="is_logged">
       <div class="d-flex align-center"></div>
-
       <v-spacer></v-spacer>
-    </v-app-bar>-->
-
+      <v-btn @click="logout" target="_blank" text>
+        <span class="mr-2">Salir</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
     <v-main>
-      <login></login>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Login from "./views/Login/Login";
-
 export default {
   name: "App",
-
-  components: {
-    login: Login,
+  computed: {
+    is_logged: function () {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
   },
-
-  data: () => ({
-    //
-  }),
+  methods: {
+    logout: function () {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/");
+    },
+  },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="Login" class="center-both">
     <v-container fill-height fluid>
-      <v-card class="mx-auto" max-width="900px" min-width="700px" outlined>
+      <v-card class="mx-auto rounded-lg" max-width="900px" min-width="700px" outlined>
         <v-card-title class="headline">Login</v-card-title>
         <v-list-item three-line>
           <v-row no-gutters>
@@ -42,7 +42,8 @@ export default {
   name: "Login",
   methods: {
     login() {
-      console.log("login");
+      this.$store.dispatch("auth/login");
+      this.$router.push("home");
     },
   },
 };

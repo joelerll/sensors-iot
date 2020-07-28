@@ -24,3 +24,9 @@ https://www.kaggle.com/vivekhn/electricity-consumption
 https://github.com/awesomedata/awesome-public-datasets
 
 https://catalog.data.gov/dataset
+
+// this.$store.dispatch("INCREMENT",);
+      // this.$store.dispatch("LOGIN/LOGIN");
+this.$store.dispatch("increment", { name: "joel" });
+      this.$store.dispatch("LOGIN/LOGIN");
+// this.\$store["/login"].dispatch("LOGIN");
