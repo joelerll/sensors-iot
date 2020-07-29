@@ -1,17 +1,15 @@
 <template>
   <div id="Navbar">
     <v-app-bar absolute app color="transparent" flat height="75">
-      <v-toolbar dense v-show="is_logged" dark class="hidden-xs-only">
-        <v-app-bar-nav-icon
-          @click.native="sideNav = !sideNav"
-        ></v-app-bar-nav-icon>
+      <v-toolbar v-show="is_logged" dark class="hidden-xs-only">
+        <!-- <v-app-bar-nav-icon @click.native="sideNav = !sideNav"></v-app-bar-nav-icon> -->
 
-        <v-toolbar-title>Client APP</v-toolbar-title>
+        <v-toolbar-title>APP</v-toolbar-title>
 
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-app-bar>
-    <v-navigation-drawer app clipped v-model="sideNav">
+    <v-navigation-drawer app clipped v-model="sideNav" floating permanent>
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <img src="https://randomuser.me/api/portraits/men/81.jpg" />
@@ -21,14 +19,11 @@
           <v-list-item-title>Andres Lopez</v-list-item-title>
           <v-list-item-subtitle>Admin</v-list-item-subtitle>
         </v-list-item-content>
-        <v-btn icon>
-          <v-icon @click="sideNav = !sideNav">mdi-chevron-left</v-icon>
-        </v-btn>
       </v-list-item>
 
       <v-list>
         <!-- home -->
-        <v-list-item link>
+        <v-list-item link @click="goToHome">
           <v-list-item-icon>
             <v-icon>mdi-home-city</v-icon>
           </v-list-item-icon>
@@ -38,7 +33,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="goTousers">
           <v-list-item-icon>
             <v-icon>mdi-account</v-icon>
           </v-list-item-icon>
@@ -80,14 +75,20 @@ export default {
     };
   },
   computed: {
-    is_logged: function() {
+    is_logged: function () {
       return this.$store.getters["auth/isAuthenticated"];
     },
   },
   methods: {
-    logout: function() {
+    logout: function () {
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
+    },
+    goTousers: function () {
+      this.$router.push("/users");
+    },
+    goToHome: function () {
+      this.$router.push("/home");
     },
   },
 };
