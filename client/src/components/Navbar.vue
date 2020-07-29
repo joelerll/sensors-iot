@@ -1,15 +1,15 @@
 <template>
   <div id="Navbar">
-    <v-app-bar absolute app color="transparent" flat height="75">
-      <v-toolbar v-show="is_logged" dark class="hidden-xs-only">
+    <v-app-bar app color="transparent" flat height="75">
+      <v-toolbar v-show="is_logged" dark flat outlined tile>
         <!-- <v-app-bar-nav-icon @click.native="sideNav = !sideNav"></v-app-bar-nav-icon> -->
 
-        <v-toolbar-title>APP</v-toolbar-title>
+        <v-toolbar-title>{{current_path_name}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-app-bar>
-    <v-navigation-drawer app clipped v-model="sideNav" floating permanent>
+    <v-navigation-drawer app v-model="sideNav" floating permanent>
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <img src="https://randomuser.me/api/portraits/men/81.jpg" />
@@ -72,12 +72,16 @@ export default {
   data() {
     return {
       sideNav: false,
+      current_path_name: "",
     };
   },
   computed: {
     is_logged: function () {
       return this.$store.getters["auth/isAuthenticated"];
     },
+  },
+  mounted() {
+    this.current_path_name = this.$router.currentRoute.name;
   },
   methods: {
     logout: function () {
@@ -86,9 +90,15 @@ export default {
     },
     goTousers: function () {
       this.$router.push("/users");
+      this.current_path_name = this.$router.currentRoute.name;
     },
     goToHome: function () {
       this.$router.push("/home");
+      this.current_path_name = this.$router.currentRoute.name;
+    },
+    goToModule: function () {
+      const module = "/TableShow";
+      this.$router.push(module);
     },
   },
 };

@@ -5,10 +5,10 @@ import Home from "../views/Home/Home.vue";
 import AuthGuard from "./auth-guard";
 
 // tables
-import TableShow from "../views/Table/TableShow.vue"
+import TableShow from "../views/Table/TableShow.vue";
 
 // users
-import UsersShow from "../views/User/UsersShow.vue"
+import UsersShow from "../views/User/UsersShow.vue";
 
 Vue.use(VueRouter);
 
@@ -26,7 +26,7 @@ const routes = [
   },
   {
     path: "/users",
-    name: "Users",
+    name: "Usuarios",
     component: UsersShow,
     beforeEnter: AuthGuard,
   },

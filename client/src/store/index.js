@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./modules/auth";
 import VuexPersistence from "vuex-persist";
+import types from "./types";
 
 Vue.use(Vuex);
 
@@ -10,18 +11,22 @@ export default new Vuex.Store({
     auth,
   },
   state: {
-    count: 0,
+    [types.current_path]: "/",
   },
   mutations: {
-    increment(state) {
-      state.count++;
+    [types.pathSet]: (state, payload) => {
+      state[types.current_path] = payload;
     },
   },
   actions: {
-    increment({ commit }, payload) {
-      commit("increment", payload);
+    [types.pathSet]: ({ commit }, payload) => {
+      commit(types.current_path, payload);
     },
   },
-  getters: {},
+  getters: {
+    [types.pathGet]: (state) => {
+      return state[types.current_path];
+    },
+  },
   plugins: [new VuexPersistence().plugin],
 });
