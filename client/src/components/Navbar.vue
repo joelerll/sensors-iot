@@ -1,14 +1,16 @@
 <template>
   <div id="Navbar">
-    <v-toolbar dense v-show="is_logged" dark class="hidden-xs-only">
-      <v-app-bar-nav-icon
-        @click.native="sideNav = !sideNav"
-      ></v-app-bar-nav-icon>
+    <v-app-bar absolute app color="transparent" flat height="75">
+      <v-toolbar dense v-show="is_logged" dark class="hidden-xs-only">
+        <v-app-bar-nav-icon
+          @click.native="sideNav = !sideNav"
+        ></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Client APP</v-toolbar-title>
+        <v-toolbar-title>Client APP</v-toolbar-title>
 
-      <v-spacer></v-spacer>
-    </v-toolbar>
+        <v-spacer></v-spacer>
+      </v-toolbar>
+    </v-app-bar>
     <v-navigation-drawer app clipped v-model="sideNav">
       <v-list-item class="px-2">
         <v-list-item-avatar>
