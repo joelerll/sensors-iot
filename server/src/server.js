@@ -1,4 +1,4 @@
-const { app, server } = require("./app");
+const { app, server, DB } = require("./app");
 const { PORT } = require("./constants");
 
 app.set("port", PORT);
@@ -29,6 +29,11 @@ function onListening() {
   }
 }
 
-server.on("error", onError);
-server.on("listening", onListening);
-server.listen(app.get("port"));
+const init = async () => {
+  await DB.Mysql.authenticate();
+  server.on("error", onError);
+  server.on("listening", onListening);
+  server.listen(app.get("port"));
+};
+
+init();

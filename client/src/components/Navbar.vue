@@ -1,6 +1,6 @@
 <template>
   <div id="Navbar">
-    <v-app-bar app color="transparent" flat height="75">
+    <v-app-bar :app="is_logged" color="transparent" flat height="75">
       <v-toolbar v-show="is_logged" dark flat outlined tile>
         <!-- <v-app-bar-nav-icon @click.native="sideNav = !sideNav"></v-app-bar-nav-icon> -->
 
@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-app-bar>
-    <v-navigation-drawer app v-model="sideNav" floating permanent>
+    <v-navigation-drawer v-show="is_logged" permanent :app="is_logged">
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <img src="https://randomuser.me/api/portraits/men/81.jpg" />
@@ -86,6 +86,7 @@ export default {
   methods: {
     logout: function () {
       this.$store.dispatch("auth/logout");
+      this.sideNav = false;
       this.$router.push("/");
     },
     goTousers: function () {

@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("cross-env");
 
+const api = require("./api");
+
 const app = express();
 app.use(cors());
 app.use(morgan("tiny"));
@@ -12,11 +14,12 @@ const server = http.createServer(app);
 
 const DB = require("./db");
 
-// inject databases into request
 app.all("/**", (req, res, next) => {
   req.DB = DB;
   next();
 });
+
+app.use("/api", api);
 
 app.get("/ping", (req, res) => {
   res.send("pong");
@@ -30,4 +33,5 @@ app.use((req, res, next) => {
 module.exports = {
   app,
   server,
+  DB,
 };

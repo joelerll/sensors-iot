@@ -27,6 +27,11 @@ https://catalog.data.gov/dataset
 
 // this.$store.dispatch("INCREMENT",);
       // this.$store.dispatch("LOGIN/LOGIN");
-this.$store.dispatch("increment", { name: "joel" });
+this.$store.dispatch("increment", { name: "alex" });
       this.$store.dispatch("LOGIN/LOGIN");
 // this.\$store["/login"].dispatch("LOGIN");
+
+<!-- sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string -->
+<!-- sequelize-cli db:migrate -->
+<!-- sequelize-cli db:migrate:undo -->
+<!-- sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js -->

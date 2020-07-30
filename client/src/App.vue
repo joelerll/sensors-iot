@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <navbar></navbar>
+    <navbar v-show="is_logged"></navbar>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -21,6 +21,11 @@ export default {
   name: "App",
   components: {
     navbar,
+  },
+  computed: {
+    is_logged: function () {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
   },
 };
 </script>
