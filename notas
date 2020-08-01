@@ -1,3 +1,22 @@
+EC2
+
+ssh -i server.pem ubuntu@ec2-18-218-68-190.us-east-2.compute.amazonaws.com
+
+
+url ec2-18-218-68-190.us-east-2.compute.amazonaws.com
+
+Amazon ECS y EKS
+NGINX (server)
+Amazon Dinamo (mongodb)
+Amazon S3 (csv)
+Amazon RDS (Mysql)
+Amazon ElasticCache(redis)
+cloud gateway iot hub
+
+Subir excel y guardarlos en s3
+Subir de pagina sync (URL, headers, format)
+
+
 Proyecto notas
 
  Iotplataforma#2020

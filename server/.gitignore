@@ -1,3 +1,4 @@
 .env.development
 yarn-error.log
 yarn.lock
+src/dist

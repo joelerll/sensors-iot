@@ -6,4 +6,5 @@ export default {
   current_path: "current_path",
   pathSet: "pathSet",
   pathGet: "pathGet",
+  userGet: "userGet",
 };

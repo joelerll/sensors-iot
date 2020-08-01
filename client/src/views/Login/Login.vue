@@ -9,7 +9,13 @@
               <v-icon class="center-both">mdi-account</v-icon>
             </v-col>
             <v-col class="col-10">
-              <v-text-field class="pa-2" label="Usuario" required @keyup.enter="login"></v-text-field>
+              <v-text-field
+                class="pa-2"
+                label="Usuario"
+                required
+                @keyup.enter="login"
+                v-model="username"
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-list-item>
@@ -25,6 +31,7 @@
                 label="Contraseña"
                 required
                 @keyup.enter="login"
+                v-model="password"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -40,10 +47,25 @@
 <script>
 export default {
   name: "Login",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
   methods: {
     login() {
-      this.$store.dispatch("auth/login");
-      this.$router.push("home");
+      this.$store
+        .dispatch("auth/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push("home");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 };

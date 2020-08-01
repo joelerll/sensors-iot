@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const morgan = require("morgan");
 const cors = require("cors");
-const path = require("cross-env");
+const path = require("path");
 
 const api = require("./api");
 
@@ -20,6 +20,8 @@ app.all("/**", (req, res, next) => {
 });
 
 app.use("/api", api);
+
+app.use("/", express.static(path.resolve(__dirname, "dist")));
 
 app.get("/ping", (req, res) => {
   res.send("pong");

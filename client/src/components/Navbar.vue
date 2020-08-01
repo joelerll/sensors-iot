@@ -12,12 +12,12 @@
     <v-navigation-drawer v-show="is_logged" permanent :app="is_logged">
       <v-list-item class="px-2">
         <v-list-item-avatar>
-          <img src="https://randomuser.me/api/portraits/men/81.jpg" />
+          <img :src="user.avatar" />
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Andres Lopez</v-list-item-title>
-          <v-list-item-subtitle>Admin</v-list-item-subtitle>
+          <v-list-item-title>{{user.first_name}} {{user.last_name}}</v-list-item-title>
+          <!-- <v-list-item-subtitle>Admin</v-list-item-subtitle> -->
         </v-list-item-content>
       </v-list-item>
 
@@ -78,6 +78,9 @@ export default {
   computed: {
     is_logged: function () {
       return this.$store.getters["auth/isAuthenticated"];
+    },
+    user: function () {
+      return this.$store.getters["auth/userGet"];
     },
   },
   mounted() {
