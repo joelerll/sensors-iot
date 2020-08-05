@@ -46,13 +46,13 @@
         <v-divider></v-divider>
 
         <!-- modules -->
-        <v-list-item link>
+        <v-list-item link @click="goToInamhi">
           <v-list-item-icon>
             <v-icon>mdi-weather-lightning</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>Empresa Electrica</v-list-item-title>
+            <v-list-item-title>Inamhi</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -98,6 +98,10 @@ export default {
     },
     goToHome: function () {
       this.$router.push("/home");
+      this.current_path_name = this.$router.currentRoute.name;
+    },
+    goToInamhi: function () {
+      this.$router.push("/inamhi");
       this.current_path_name = this.$router.currentRoute.name;
     },
     goToModule: function () {

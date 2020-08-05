@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development env-cmd -f .env.development  nodemon src/server.js --config nodemon.json",
     "test:auth": "NODE_ENV=development env-cmd -f .env.development mocha src/api/auth/auth.test.js",
     "seeders:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:seed:all",
-    "migration:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:migrate:all"
+    "migration:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:migrate"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

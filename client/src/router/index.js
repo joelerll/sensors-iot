@@ -10,6 +10,9 @@ import TableShow from "../views/Table/TableShow.vue";
 // users
 import UsersShow from "../views/User/UsersShow.vue";
 
+// Inamhi
+import Inamhi from "../views/Inamhi/Inamhi.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,6 +38,11 @@ const routes = [
     name: "TableShow",
     component: TableShow,
     beforeEnter: AuthGuard,
+  },
+  {
+    path: "/inamhi",
+    name: "Inamhi",
+    component: Inamhi
   },
   {
     path: "*",
