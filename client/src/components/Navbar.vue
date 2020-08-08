@@ -1,7 +1,7 @@
 <template>
   <div id="Navbar">
-    <v-app-bar :app="is_logged" color="transparent" flat height="75" hide-on-scroll>
-      <v-toolbar v-show="is_logged" dark flat outlined tile>
+    <v-app-bar :app="is_logged" color="transparent" flat height="75" hide-on-scroll fixed>
+      <v-toolbar v-show="is_logged" dark flat outlined tile bottom>
         <!-- <v-app-bar-nav-icon @click.native="sideNav = !sideNav"></v-app-bar-nav-icon> -->
 
         <v-toolbar-title>{{current_path_name}}</v-toolbar-title>
@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-app-bar>
-    <v-navigation-drawer v-show="is_logged" permanent :app="is_logged">
+    <v-navigation-drawer v-show="is_logged" permanent :app="is_logged" :mini-variant.sync="mini">
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <img :src="user.avatar" />
@@ -19,6 +19,12 @@
           <v-list-item-title>{{user.first_name}} {{user.last_name}}</v-list-item-title>
           <!-- <v-list-item-subtitle>Admin</v-list-item-subtitle> -->
         </v-list-item-content>
+        <v-btn
+          icon
+          @click.stop="mini = !mini"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
       </v-list-item>
 
       <v-list>
@@ -57,10 +63,17 @@
         </v-list-item>
       </v-list>
 
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block @click="logout" color="error">Salir</v-btn>
-        </div>
+      <template v-slot:append @click="logout">
+        <v-list>
+          <v-list-item link>
+            <v-list-item-icon>
+              <v-icon color="red">mdi-exit-to-app</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-btn block @click="logout" color="error">Salir</v-btn>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </template>
     </v-navigation-drawer>
   </div>
@@ -73,6 +86,7 @@ export default {
     return {
       sideNav: false,
       current_path_name: "",
+      mini: true,
     };
   },
   computed: {
