@@ -23,7 +23,7 @@
           icon
           @click.stop="mini = !mini"
         >
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon color="blue">mdi-chevron-left</v-icon>
         </v-btn>
       </v-list-item>
 
@@ -54,7 +54,8 @@
         <!-- modules -->
         <v-list-item link @click="goToInamhi">
           <v-list-item-icon>
-            <v-icon>mdi-weather-lightning</v-icon>
+            <!-- <v-icon>mdi-weather-lightning</v-icon> -->
+            <img src="@/assets/logo_inamhi_2.png"  width="30" height="30"/>
           </v-list-item-icon>
 
           <v-list-item-content>
