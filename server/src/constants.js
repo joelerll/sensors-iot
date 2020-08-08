@@ -13,5 +13,5 @@ module.exports = {
       url: process.env.MONGO_URL,
     },
   },
-  CRON_HOUR: "0 * * * *"
+  CRON_HOUR: "2 * * * *"
 };

@@ -43,7 +43,7 @@ Object.keys(db).forEach((modelName) => {
 
 db.authenticate = () => {
   try {
-    console.log("Connection has been established successfully.");
+    console.info("MysqlDB connected!!!");
     return sequelize.authenticate();
   } catch (error) {
     console.error("Unable to connect to the database:", error);

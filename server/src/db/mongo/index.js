@@ -39,7 +39,7 @@ class Mongo {
       });
 
       db.once("open", () => {
-        console.log("Database connected");
+        console.info("MongoDB connected!!!");
         resolve(db);
       });
 

@@ -27,11 +27,6 @@ module.exports = {
             id_esta: 63965,
             type: 'HIDROLOGICA',
         }
-        // {
-        //     id_esta: 61826,
-        //     name: "SAN PABLO EN PALMAR",
-        //     type: "HIDROLOGICA",
-        // }
     ],
     inamhi: {
         

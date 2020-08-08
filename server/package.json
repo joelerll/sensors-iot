@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development env-cmd -f .env.development  nodemon src/server.js --config nodemon.json",
+    "prod": "export $(cat .env.production | xargs) && node src/server.js",
     "test:auth": "NODE_ENV=development env-cmd -f .env.development mocha src/api/auth/auth.test.js",
     "test:job": "NODE_ENV=development env-cmd -f .env.development mocha src/jobs/jobs.test.js",
     "seeders:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:seed:all",

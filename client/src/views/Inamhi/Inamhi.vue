@@ -1,14 +1,7 @@
 <template>
   <div id="Inamhi">
     <v-container fluid>
-    <v-select
-          :items="items"
-          label="Seleccionar"
-          dense
-          v-model="selector"
-          @change="select"
-        ></v-select>
-    <h1></h1>
+      <v-select :items="items" label="Seleccionar" dense v-model="selector" @change="select"></v-select>
       <v-data-table :headers="headers" :items="data" :items-per-page="8" class="elevation-1">
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
@@ -19,7 +12,10 @@
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
               <v-card-title>Presión Atmosférica</v-card-title>
-              <line-chart  :chartData="presion_atmosferica_data" :options="presion_atmosferica_options"/>
+              <line-chart
+                :chartData="presion_atmosferica_data"
+                :options="presion_atmosferica_options"
+              />
             </v-card>
           </v-col>
           <!-- <v-col cols="18" sm="6">
@@ -27,7 +23,7 @@
               <v-card-title>Humedad Relativa del aire</v-card-title>
               <line-chart   :chartdata="chartdata" :options="optionsBar"/>
             </v-card>
-          </v-col> -->
+          </v-col>-->
         </v-row>
       </v-container>
       <!-- <v-container fluid>
@@ -41,7 +37,7 @@
           <v-col cols="18" sm="6">
           </v-col>
         </v-row>
-      </v-container> -->
+      </v-container>-->
     </v-container>
   </div>
 </template>
@@ -59,111 +55,123 @@ export default {
   methods: {
     presionAtmosfericaChar(labels, data) {
       return {
-          labels,
-          datasets: [{
+        labels,
+        datasets: [
+          {
             label: "Presión Atmosférica",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
             data,
             fill: false,
-          }]
-      }
+          },
+        ],
+      };
     },
-    select (data) {
-      this.current_type = data.type
+    select(data) {
+      this.current_type = data.type;
       this.$store
         .dispatch("inamhi/inamhi_page", {
           id_esta: data.id_esta,
           name: data.name,
-          type: data.type
+          type: data.type,
         })
         .then((data) => {
-          this.inamhi = data
+          this.inamhi = data;
         })
         .catch((err) => {
           console.error(err);
         });
-    }
+    },
   },
   mounted() {
     this.$store
-        .dispatch("inamhi/inamhi_page", {})
-        .then((data) => {
-          this.inamhi = data
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      .dispatch("inamhi/inamhi_page", {})
+      .then((data) => {
+        this.inamhi = data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
   computed: {
-      presion_atmosferica_data () {
-        const data = this.$store.getters["inamhi/inamhi_page_get"];
-        const labels = []
-        const datachar = []
-        for (let index = 0; index < data.length; index++) {
-          const head = {}
-          for (let y = 0; y < data[index].headers.length; y++) {
-            if (y === 0) {
-              head.fecha = data[index].data[y]
-              labels.push(head.fecha)
-              continue;
-            }
-            if (data[index].headers[y] === 'PRESION ATMOSFERICA (hPa) INST') {
-              datachar.push(data[index].data[y])
-            }
-          }
-        }
-        const res = this.presionAtmosfericaChar(labels, datachar)
-        return res
-      },
-      data () {
-        const data = this.$store.getters["inamhi/inamhi_page_get"];
-        const parse = []
-        const labels = []
-        const datachar = []
-        for (let index = 0; index < data.length; index++) {
-          const head = {}
-          for (let y = 0; y < data[index].headers.length; y++) {
-            if (y === 0) {
-              head.fecha = data[index].data[y]
-              labels.push(head.fecha)
-              continue;
-            }
-            if (data[index].headers[y] === 'PRESION ATMOSFERICA (hPa) INST') {
-              datachar.push(data[index].data[y])
-            }
-            head[data[index].headers[y]] = data[index].data[y]
-          }
-          parse.push(head)
-        }
-        return parse
-      },
-      headers() {
-        const data = this.$store.getters["inamhi/inamhi_page_get"];
-        const parse = []
-        let cont = 0;
-        for (const head of data[0].headers) {
-          if (cont === 0) {
-            parse.push({
-              text: head,
-              value: "fecha",
-            })
-            cont++;
+    presion_atmosferica_data() {
+      const data = this.$store.getters["inamhi/inamhi_page_get"];
+      const labels = [];
+      const datachar = [];
+      for (let index = 0; index < data.length; index++) {
+        const head = {};
+        for (let y = 0; y < data[index].headers.length; y++) {
+          if (y === 0) {
+            head.fecha = data[index].data[y];
+            labels.push(head.fecha);
             continue;
           }
-          parse.push({
-              text: head,
-              value: head,
-          })
-          cont++;
+          if (data[index].headers[y] === "PRESION ATMOSFERICA (hPa) INST") {
+            datachar.push(data[index].data[y]);
+          }
         }
-        return parse
       }
+      const res = this.presionAtmosfericaChar(labels, datachar);
+      return res;
     },
+    data() {
+      const data = this.$store.getters["inamhi/inamhi_page_get"];
+      const parse = [];
+      const labels = [];
+      const datachar = [];
+      for (let index = 0; index < data.length; index++) {
+        const head = {};
+        for (let y = 0; y < data[index].headers.length; y++) {
+          if (y === 0) {
+            head.fecha = data[index].data[y];
+            labels.push(head.fecha);
+            continue;
+          }
+          if (data[index].headers[y] === "PRESION ATMOSFERICA (hPa) INST") {
+            datachar.push(data[index].data[y]);
+          }
+          head[data[index].headers[y]] = data[index].data[y];
+        }
+        parse.push(head);
+      }
+      return parse;
+    },
+    headers() {
+      const data = this.$store.getters["inamhi/inamhi_page_get"];
+      const parse = [];
+      let cont = 0;
+      if (!data[0]) {
+        return []
+      }
+      for (const head of data[0].headers) {
+        if (cont === 0) {
+          parse.push({
+            text: head,
+            value: "fecha",
+          });
+          cont++;
+          continue;
+        }
+        parse.push({
+          text: head,
+          value: head,
+        });
+        cont++;
+      }
+      return parse;
+    },
+  },
   data() {
     return {
-      selector: {},
-      current_type: 'METEOROLOGICA',
+      selector: {
+        text: "GUAYAQUIL (FACULTAD CCNN) - METEOROLOGICA",
+        value: {
+          id_esta: 63813,
+          name: "GUAYAQUIL (FACULTAD CCNN)",
+          type: "METEOROLOGICA",
+        },
+      },
+      current_type: "METEOROLOGICA",
       items: [
         {
           text: "GUAYAQUIL (FACULTAD CCNN) - METEOROLOGICA",
@@ -171,7 +179,7 @@ export default {
             id_esta: 63813,
             name: "GUAYAQUIL (FACULTAD CCNN)",
             type: "METEOROLOGICA",
-          } 
+          },
         },
         {
           text: "SAN PABLO EN PALMAR - HIDROLOGICA",
@@ -184,27 +192,27 @@ export default {
         {
           text: "ESMERALDAS DJ SADE - HIDROLOGICA",
           value: {
-              name: "ESMERALDAS DJ SADE",
-              id_esta: 61699,
-              type: "HIDROLOGICA"
-            }
+            name: "ESMERALDAS DJ SADE",
+            id_esta: 61699,
+            type: "HIDROLOGICA",
+          },
         },
         {
           text: "PUERTO ILA - METEOROLOGICA",
           value: {
-            name: 'PUERTO ILA',
+            name: "PUERTO ILA",
             id_esta: 57,
-            type: 'METEOROLOGICA',
-          }
+            type: "METEOROLOGICA",
+          },
         },
         {
-            text: "AGUARICO EN NUEVA LOJA (LA GABARRA) - HIDROLOGICA",
-            value: {
-              name: 'AGUARICO EN NUEVA LOJA (LA GABARRA)',
-              id_esta: 63965,
-              type: 'HIDROLOGICA',
-            }
-        }
+          text: "AGUARICO EN NUEVA LOJA (LA GABARRA) - HIDROLOGICA",
+          value: {
+            name: "AGUARICO EN NUEVA LOJA (LA GABARRA)",
+            id_esta: 63965,
+            type: "HIDROLOGICA",
+          },
+        },
       ],
       presion_atmosferica_options: {
         responsive: true,
@@ -250,32 +258,33 @@ export default {
       loaded: true,
       HumData: {
         labels: [
-            "2020-08-05 00:00:00",
-            "2020-08-04 23:00:00",
-            "2020-08-04 22:00:00",
-            "2020-08-04 21:00:00",
-            "2020-08-04 20:00:00",
-            "2020-08-04 19:00:00",
-            "2020-08-04 18:00:00",
-            "2020-08-04 17:00:00",
-            "2020-08-04 16:00:00",
-            "2020-08-04 15:00:00",
-            "2020-08-04 14:00:00",
-            "2020-08-04 13:00:00",
-            "2020-08-04 12:00:00",
-            "2020-08-04 11:00:00",
-            "2020-08-04 10:00:00",
-            "2020-08-04 09:00:00",
-            "2020-08-04 08:00:00",
-            "2020-08-04 07:00:00",
-            "2020-08-04 06:00:00",
-            "2020-08-04 05:00:00",
-            "2020-08-04 04:00:00",
-            "2020-08-04 03:00:00",
-            "2020-08-04 02:00:00",
-            "2020-08-04 01:00:00",
-          ],
-          datasets: [{
+          "2020-08-05 00:00:00",
+          "2020-08-04 23:00:00",
+          "2020-08-04 22:00:00",
+          "2020-08-04 21:00:00",
+          "2020-08-04 20:00:00",
+          "2020-08-04 19:00:00",
+          "2020-08-04 18:00:00",
+          "2020-08-04 17:00:00",
+          "2020-08-04 16:00:00",
+          "2020-08-04 15:00:00",
+          "2020-08-04 14:00:00",
+          "2020-08-04 13:00:00",
+          "2020-08-04 12:00:00",
+          "2020-08-04 11:00:00",
+          "2020-08-04 10:00:00",
+          "2020-08-04 09:00:00",
+          "2020-08-04 08:00:00",
+          "2020-08-04 07:00:00",
+          "2020-08-04 06:00:00",
+          "2020-08-04 05:00:00",
+          "2020-08-04 04:00:00",
+          "2020-08-04 03:00:00",
+          "2020-08-04 02:00:00",
+          "2020-08-04 01:00:00",
+        ],
+        datasets: [
+          {
             label: "Temperatura aire(INST)",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
@@ -303,39 +312,41 @@ export default {
               608.4,
               618.6,
               899.3,
-              677.9
+              677.9,
             ],
             fill: false,
-          }]
+          },
+        ],
       },
       barData: {
         labels: [
-            "2020-08-05 00:00:00",
-            "2020-08-04 23:00:00",
-            "2020-08-04 22:00:00",
-            "2020-08-04 21:00:00",
-            "2020-08-04 20:00:00",
-            "2020-08-04 19:00:00",
-            "2020-08-04 18:00:00",
-            "2020-08-04 17:00:00",
-            "2020-08-04 16:00:00",
-            "2020-08-04 15:00:00",
-            "2020-08-04 14:00:00",
-            "2020-08-04 13:00:00",
-            "2020-08-04 12:00:00",
-            "2020-08-04 11:00:00",
-            "2020-08-04 10:00:00",
-            "2020-08-04 09:00:00",
-            "2020-08-04 08:00:00",
-            "2020-08-04 07:00:00",
-            "2020-08-04 06:00:00",
-            "2020-08-04 05:00:00",
-            "2020-08-04 04:00:00",
-            "2020-08-04 03:00:00",
-            "2020-08-04 02:00:00",
-            "2020-08-04 01:00:00",
-          ],
-          datasets: [{
+          "2020-08-05 00:00:00",
+          "2020-08-04 23:00:00",
+          "2020-08-04 22:00:00",
+          "2020-08-04 21:00:00",
+          "2020-08-04 20:00:00",
+          "2020-08-04 19:00:00",
+          "2020-08-04 18:00:00",
+          "2020-08-04 17:00:00",
+          "2020-08-04 16:00:00",
+          "2020-08-04 15:00:00",
+          "2020-08-04 14:00:00",
+          "2020-08-04 13:00:00",
+          "2020-08-04 12:00:00",
+          "2020-08-04 11:00:00",
+          "2020-08-04 10:00:00",
+          "2020-08-04 09:00:00",
+          "2020-08-04 08:00:00",
+          "2020-08-04 07:00:00",
+          "2020-08-04 06:00:00",
+          "2020-08-04 05:00:00",
+          "2020-08-04 04:00:00",
+          "2020-08-04 03:00:00",
+          "2020-08-04 02:00:00",
+          "2020-08-04 01:00:00",
+        ],
+        datasets: [
+          {
             label: "Temperatura aire(INST)",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
@@ -366,7 +377,8 @@ export default {
               0,
             ],
             fill: false,
-          }]
+          },
+        ],
       },
       optionsBar: {
         responsive: true,
@@ -492,7 +504,7 @@ export default {
               92,
               90,
               87,
-              86
+              86,
             ],
           },
           {
@@ -523,7 +535,7 @@ export default {
               90,
               87,
               86,
-              83
+              83,
             ],
           },
         ],
