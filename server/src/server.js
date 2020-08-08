@@ -34,9 +34,9 @@ function onListening() {
 const init = async () => {
   await DB.Mysql.authenticate();
   await DB.Mongo.connect();
-  // cron.schedule(CRON_HOUR, () => {
-  //   Jobs.Inamhi(DB);
-  // });
+  cron.schedule(CRON_HOUR, () => {
+    Jobs.Inamhi(DB);
+  });
   server.on("error", onError);
   server.on("listening", onListening);
   server.listen(app.get("port"));
