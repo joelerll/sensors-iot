@@ -19,6 +19,8 @@ app.use(
 );
 
 const auth = require("./auth");
+const inamhi = require("./inamhi");
 app.use("/auth", auth);
+app.use("/inamhi", inamhi);
 
 module.exports = app;

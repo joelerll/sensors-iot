@@ -1,11 +1,15 @@
 <template>
   <div id="Inamhi">
     <v-container fluid>
-      <v-data-table :headers="headers" :items="data" :items-per-page="5" class="elevation-1"></v-data-table>
-      <!-- <div  width="50px" height="50px">
-        <line-chart  :chartdata="chartdata" :options="options"/>
-      </div> -->
-      <v-container fluid>
+
+    <h1>GUAYAQUIL (FACULTAD CCNN) - METEOROLOGICA</h1>
+      <v-data-table :headers="headers" :items="data" :items-per-page="8" class="elevation-1">
+        <template v-slot:item.fecha="{ item }">
+          <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
+          <!-- {{item.fecha}} -->
+        </template>
+      </v-data-table>
+      <!-- <v-container fluid>
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
@@ -30,48 +34,78 @@
             </v-card>
           </v-col>
           <v-col cols="18" sm="6">
-            <!-- <v-card class="rounded-lg" tile>
-              <v-card-title>Precipitación</v-card-title>
-              <line-chart  :chartdata="HumData" :options="options"/>
-            </v-card> -->
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> -->
     </v-container>
   </div>
 </template>
 
 <script>
-import LineChart from "../../components/charts/LineChart";
-import BarChart from "../../components/charts/BarChart";
+// import LineChart from "../../components/charts/LineChart";
+// import BarChart from "../../components/charts/BarChart";
 // import chartjs from 'chart.js';
 export default {
   components: {
-    LineChart,
-    BarChart
+    // LineChart,
+    // BarChart
   },
   name: "Inamhi",
+  mounted() {
+    this.$store
+        .dispatch("inamhi/inamhi_page")
+        .then((data) => {
+          this.inamhi = data
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+  },
   computed: {
-      computedDateFormatted () {
-        return this.formatDate()
-      },
+      data () {
+        const data = this.$store.getters["inamhi/inamhi_page_get"];
+        const parse = []
+        for (const iterator of data) {
+          // console.log(iterator)
+          parse.push(iterator.data)
+        }
+        // console.log()
+        return parse
+      }
     },
     methods: {
-      formatDate (date) {
-        if (!date) return null
-
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      },
     },
   data() {
     return {
+      headers: [
+        {
+          text: "Fecha",
+          align: "start",
+          sortable: false,
+          value: "fecha",
+        },
+        {
+          text: "HUMEDAD RELATIVA DEL AIRE INST",
+          value: "humedad_relativa_aire_inst",
+        },
+        {
+          text: "HUMEDAD RELATIVA DEL AIR MAX",
+          value: "humedad_relativa_aire_max",
+        },
+        {
+          text: "HUMEDAD RELATIVA DEL AIRE MIN",
+          value: "humedad_relativa_aire_min",
+        },
+        { text: "PRECIPITACION", value: "precipitacion" },
+        { text: "PRESION ATMOSFERICA INST", value: "presion" },
+        { text: "TEMPERATURA AIRE INST", value: "temperatura_aire_inst" },
+        { text: "TEMPERATURA AIRE MAX", value: "temperatura_aire_max" },
+        { text: "TEMPERATURA AIRE MIN", value: "temperatura_aire_min" },
+        { text: "VIENTO DIRECCION INST", value: "velocidad_viento" },
+        { text: "VIENTO VELOCIDAD INST", value: "viento_direccion_min" },
+      ],
+
+      // delete
       date: new Date().toISOString().substr(0, 10),
       // dateFormatted: formatDate(new Date().toISOString().substr(0, 10)),
       menu1: false,
@@ -452,350 +486,9 @@ export default {
           ],
         },
       },
-      headers: [
-        {
-          text: "Fecha",
-          align: "start",
-          sortable: false,
-          value: "date",
-        },
-        {
-          text: "HUMEDAD RELATIVA DEL AIRE INST",
-          value: "humedad_relativa_aire_inst",
-        },
-        {
-          text: "HUMEDAD RELATIVA DEL AIR MAX",
-          value: "humedad_relativa_aire_max",
-        },
-        {
-          text: "HUMEDAD RELATIVA DEL AIRE MIN",
-          value: "humedad_relativa_aire_min",
-        },
-        { text: "PRECIPITACION", value: "precipitacion" },
-        { text: "PRESION ATMOSFERICA INST", value: "presion" },
-        { text: "TEMPERATURA AIRE INST", value: "temperatura_aire_inst" },
-        { text: "TEMPERATURA AIRE MAX", value: "temperatura_aire_max" },
-        { text: "TEMPERATURA AIRE MIN", value: "temperatura_aire_min" },
-        { text: "VIENTO DIRECCION INST", value: "viento_direccion" },
-        { text: "VIENTO VELOCIDAD INST", value: "viento_velocidad" },
-      ],
       id: 63813,
       type: "METEOROLOGICA",
       estanomb: "GUAYAQUIL (FACULTAD CCNN)",
-      data: [
-        {
-          date: "2020-08-05 00:00:00",
-          humedad_relativa_aire_inst: 82,
-          humedad_relativa_aire_max: 0,
-          humedad_relativa_aire_min: 0,
-          precipitacion: 0,
-          presion: 569.8,
-          temperatura_aire_inst: 21.6,
-          temperatura_aire_max: 0,
-          temperatura_aire_min: 0,
-          viento_direccion: 126,
-          viento_velocidad: 3.7,
-        },
-        {
-          date: "2020-08-04 23:00:00",
-          humedad_relativa_aire_inst: 79,
-          humedad_relativa_aire_max: 81,
-          humedad_relativa_aire_min: 79,
-          precipitacion: 0,
-          presion: 552.8,
-          temperatura_aire_inst: 22.1,
-          temperatura_aire_max: 22.1,
-          temperatura_aire_min: 21.5,
-          viento_direccion: 157,
-          viento_velocidad: 2.1,
-        },
-        {
-          date: "2020-08-04 22:00:00",
-          humedad_relativa_aire_inst: 73,
-          humedad_relativa_aire_max: 79,
-          humedad_relativa_aire_min: 72,
-          precipitacion: 0,
-          presion: 610.5,
-          temperatura_aire_inst: 23.5,
-          temperatura_aire_max: 23.6,
-          temperatura_aire_min: 22.1,
-          viento_direccion: 140,
-          viento_velocidad: 2,
-        },
-        {
-          date: "2020-08-04 21:00:00",
-          humedad_relativa_aire_inst: 67,
-          humedad_relativa_aire_max: 73,
-          humedad_relativa_aire_min: 67,
-          precipitacion: 0,
-          presion: 616.4,
-          temperatura_aire_inst: 24.3,
-          temperatura_aire_max: 24.4,
-          temperatura_aire_min: 23.4,
-          viento_direccion: 162,
-          viento_velocidad: 1.4,
-        },
-        {
-          date: "2020-08-04 20:00:00",
-          humedad_relativa_aire_inst: 63,
-          humedad_relativa_aire_max: 67,
-          humedad_relativa_aire_min: 63,
-          precipitacion: 0,
-          presion: 657.8,
-          temperatura_aire_inst: 25.7,
-          temperatura_aire_max: 25.7,
-          temperatura_aire_min: 24.4,
-          viento_direccion: 184,
-          viento_velocidad: 3.7,
-        },
-        {
-          date: "2020-08-04 19:00:00",
-          humedad_relativa_aire_inst: 60,
-          humedad_relativa_aire_max: 67,
-          humedad_relativa_aire_min: 59,
-          precipitacion: 0,
-          presion: 715.6,
-          temperatura_aire_inst: 27.5,
-          temperatura_aire_max: 27.5,
-          temperatura_aire_min: 25.7,
-          viento_direccion: 141,
-          viento_velocidad: 2.6,
-        },
-        {
-          date: "2020-08-04 18:00:00",
-          humedad_relativa_aire_inst: 62,
-          humedad_relativa_aire_max: 65,
-          humedad_relativa_aire_min: 55,
-          precipitacion: 0,
-          presion: 885.2,
-          temperatura_aire_inst: 28.2,
-          temperatura_aire_max: 28.3,
-          temperatura_aire_min: 27.5,
-          viento_direccion: 121,
-          viento_velocidad: 2.5,
-        },
-        {
-          date: "2020-08-04 17:00:00",
-          humedad_relativa_aire_inst: 58,
-          humedad_relativa_aire_max: 62,
-          humedad_relativa_aire_min: 51,
-          precipitacion: 0,
-          presion: 842.3,
-          temperatura_aire_inst: 30.9,
-          temperatura_aire_max: 31.3,
-          temperatura_aire_min: 28.3,
-          viento_direccion: 153,
-          viento_velocidad: 1.4,
-        },
-        {
-          date: "2020-08-04 16:00:00",
-          humedad_relativa_aire_inst: 55,
-          humedad_relativa_aire_max: 60,
-          humedad_relativa_aire_min: 51,
-          precipitacion: 0,
-          presion: 883.7,
-          temperatura_aire_inst: 31,
-          temperatura_aire_max: 32.8,
-          temperatura_aire_min: 30.1,
-          viento_direccion: 99,
-          viento_velocidad: 3.8,
-        },
-        {
-          date: "2020-08-04 15:00:00",
-          humedad_relativa_aire_inst: 51,
-          humedad_relativa_aire_max: 56,
-          humedad_relativa_aire_min: 50,
-          precipitacion: 0,
-          presion: 833.,
-          temperatura_aire_inst: 27.5,
-          temperatura_aire_max: 27.5,
-          temperatura_aire_min: 25.7,
-          viento_direccion: 141,
-          viento_velocidad: 2.6,
-        },
-        // {
-        //   date: "2020-08-04 14:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 13:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 12:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 11:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 10:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 09:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 08:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 07:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 06:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 05:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 04:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 03:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 02:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-        // {
-        //   date: "2020-08-04 01:00:00",
-        //   humedad_relativa_aire_inst: 60,
-        //   humedad_relativa_aire_max: 67,
-        //   humedad_relativa_aire_min: 59,
-        //   precipitacion: 0,
-        //   presion: 715.6,
-        //   temperatura_aire_inst: 27.5,
-        //   temperatura_aire_max: 27.5,
-        //   temperatura_aire_min: 25.7,
-        //   viento_direccion: 141,
-        //   viento_velocidad: 2.6,
-        // },
-      ],
     };
   },
 };

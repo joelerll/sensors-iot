@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development env-cmd -f .env.development  nodemon src/server.js --config nodemon.json",
     "test:auth": "NODE_ENV=development env-cmd -f .env.development mocha src/api/auth/auth.test.js",
+    "test:job": "NODE_ENV=development env-cmd -f .env.development mocha src/jobs/jobs.test.js",
     "seeders:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:seed:all",
     "migration:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:migrate"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "bull": "^3.16.0",
+    "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
@@ -21,6 +25,7 @@
     "mongoose": "^5.9.25",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
+    "node-cron": "^2.0.3",
     "sequelize": "^6.3.3"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 <template>
   <div id="Navbar">
-    <v-app-bar :app="is_logged" color="transparent" flat height="75">
+    <v-app-bar :app="is_logged" color="transparent" flat height="75" hide-on-scroll>
       <v-toolbar v-show="is_logged" dark flat outlined tile>
         <!-- <v-app-bar-nav-icon @click.native="sideNav = !sideNav"></v-app-bar-nav-icon> -->
 

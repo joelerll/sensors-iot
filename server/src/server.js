@@ -1,5 +1,7 @@
 const { app, server, DB } = require("./app");
-const { PORT } = require("./constants");
+const { PORT, CRON_HOUR } = require("./constants");
+const cron = require('node-cron');
+const Jobs = require("./jobs");
 
 app.set("port", PORT);
 
@@ -31,6 +33,10 @@ function onListening() {
 
 const init = async () => {
   await DB.Mysql.authenticate();
+  await DB.Mongo.connect();
+  cron.schedule(CRON_HOUR, () => {
+    Jobs.Inamhi(DB);
+  });
   server.on("error", onError);
   server.on("listening", onListening);
   server.listen(app.get("port"));

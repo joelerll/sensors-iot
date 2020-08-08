@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { DATABASE, ENV } = require("../../constants");
 
+const Inamhi = require("./models/inamhi");
+
 const build = (config) => {
   if (config.url) {
     return config.url;
@@ -20,6 +22,7 @@ class Mongo {
       },
       config
     );
+    this.Inamhi = Inamhi;
   }
 
   connect() {
@@ -45,6 +48,11 @@ class Mongo {
       });
     });
   }
+
+  close() {
+    mongoose.connection.close()
+  }
+ 
 }
 
 module.exports = Mongo;

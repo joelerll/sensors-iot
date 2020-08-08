@@ -1,0 +1,681 @@
+<html>
+    <head>
+
+        <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+        <link href="css/tablefront.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/highcharts-more.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+        <!-- Contact Form CSS files -->
+
+        <!-- Add the script to the HEAD of your document -->
+        <script>
+
+            var dialog;
+            //var span = document.getElementsByClassName("close")[0];
+            function combo(thelist, theinput)
+            {
+
+                dialog = document.getElementById(thelist.value);
+                dialog.style.display = 'block';
+                $(thelist).resize();
+                if (thelist.value != 'Nivel') {
+                    $('#temperatura1').highcharts().reflow();
+                    $('#humedad1').highcharts().reflow();
+                    $('#presion1').highcharts().reflow();
+                    $('#windrose').highcharts().reflow();
+                    $('#precipitacion1').highcharts().reflow();
+                } else {
+                    $('#nivel').highcharts().reflow();
+                }
+                thelist.value = 0;
+            }
+
+
+            //span.onclick = function () {
+            //    modal.style.display = "none";
+            //}
+
+            function cerrarModal()
+            {
+                dialog.style.display = 'none';
+            }
+
+            window.onclick = function (event) {
+                if (event.target == dialog) {
+                    dialog.style.display = "none";
+                }
+            }
+
+        </script>
+
+        <title></title>
+
+    </head>
+    <body  >
+        <form id="formResultados" action="./clases/ficheroExcel.php" method="POST" target="_blank">         
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-6 text-left" >
+                                <b>GRAFICAR DATOS:</b>           
+            <select class="form-control" id="params" name="thelist" onChange="combo(this, 'theinput')"   >
+            <option value="0">SELECCIONE UN PARÁMETRO</option>
+            <option >Temperatura</option>
+            <option>Precipitacion</option>
+            <option>Presion</option>
+            <option>Humedad</option>
+            <option>Viento</option>
+             </select>                            </div>
+                            <div class="col-sm-6 text-left" >
+                                <b>DISPONIBILIDAD DEL DATO:</b>
+                                <select name="dropdown" class="form-control" onchange="comboInv(this)">
+                                    <option value="0">SELECCIONE UN PARÁMETRO</option>
+                                    <option value = "284">HUMEDAD RELATIVA DEL AIRE % INST</option>
+<option value = "56">HUMEDAD RELATIVA DEL AIRE % PROM</option>
+<option value = "75">HUMEDAD RELATIVA DEL AIRE % MAX</option>
+<option value = "76">HUMEDAD RELATIVA DEL AIRE % MIN</option>
+<option value = "68">PRECIPITACION mm SUM</option>
+<option value = "302">PRECIPITACION (ACUM) mm SUM</option>
+<option value = "84">PRESION ATMOSFERICA hPa MAX</option>
+<option value = "299">PRESION ATMOSFERICA hPa INST</option>
+<option value = "57">PRESION ATMOSFERICA hPa PROM</option>
+<option value = "85">PRESION ATMOSFERICA hPa MIN</option>
+<option value = "87">RADIACION SOLAR GLOBAL W/m² MIN</option>
+<option value = "89">RADIACION SOLAR GLOBAL W/m² SUM</option>
+<option value = "86">RADIACION SOLAR GLOBAL W/m² MAX</option>
+<option value = "88">RADIACION SOLAR GLOBAL W/m² PROM</option>
+<option value = "91">RADIACION SOLAR REFLEJADA W/m² MIN</option>
+<option value = "92">RADIACION SOLAR REFLEJADA W/m² PROM</option>
+<option value = "90">RADIACION SOLAR REFLEJADA W/m² MAX</option>
+<option value = "391">RECORRIDO DEL VIENTO m SUM</option>
+<option value = "78">TEMPERATURA AIRE °C MIN</option>
+<option value = "77">TEMPERATURA AIRE °C MAX</option>
+<option value = "283">TEMPERATURA AIRE °C INST</option>
+<option value = "55">TEMPERATURA AIRE °C PROM</option>
+<option value = "498">TEMPERATURA DEL SUELO A 0CM °C MAX</option>
+<option value = "392">TEMPERATURA DEL SUELO A 0CM °C PROM</option>
+<option value = "499">TEMPERATURA DEL SUELO A 0CM °C MIN</option>
+<option value = "515">TEMPERATURA DEL SUELO A -100CM °C PROM</option>
+<option value = "514">TEMPERATURA DEL SUELO A -100CM °C MIN</option>
+<option value = "513">TEMPERATURA DEL SUELO A -100CM °C MAX</option>
+<option value = "505">TEMPERATURA DEL SUELO A -10CM °C MIN</option>
+<option value = "504">TEMPERATURA DEL SUELO A -10CM °C MAX</option>
+<option value = "506">TEMPERATURA DEL SUELO A -10CM °C PROM</option>
+<option value = "508">TEMPERATURA DEL SUELO A -20CM °C MIN</option>
+<option value = "509">TEMPERATURA DEL SUELO A -20CM °C PROM</option>
+<option value = "507">TEMPERATURA DEL SUELO A -20CM °C MAX</option>
+<option value = "510">TEMPERATURA DEL SUELO A -50CM °C MAX</option>
+<option value = "511">TEMPERATURA DEL SUELO A -50CM °C MIN</option>
+<option value = "501">TEMPERATURA DEL SUELO A -5CM °C MAX</option>
+<option value = "502">TEMPERATURA DEL SUELO A -5CM °C MIN</option>
+<option value = "503">TEMPERATURA DEL SUELO A -5CM °C PROM</option>
+<option value = "496">TEMPERATURA DEL SUELO A +5CM °C MIN</option>
+<option value = "497">TEMPERATURA DEL SUELO A +5CM °C PROM</option>
+<option value = "495">TEMPERATURA DEL SUELO A +5CM °C MAX</option>
+<option value = "301">VIENTO DIRECCION ° INST</option>
+<option value = "300">VIENTO VELOCIDAD m/s INST</option>
+<option value = "74">VIENTO VELOCIDAD m/s MIN</option>
+<option value = "535">VOLTAJE DE LA BATERIA V PROM</option>
+                                </select>
+                            </div>
+                            <script>
+                                var dialog;
+                                function comboInv(thelist)
+                                {
+                                    var objTag = document.getElementById('contentarea');
+                                    copa = thelist.value;
+                                    if (copa != 0) {
+                                        nombre = thelist.options[thelist.selectedIndex].text;
+                                        esta = '63813';
+                                        //                                    objTag.setAttribute('data', 'heatmapdata.php?nombre=' + nombre + '&esta=' + esta + '&copa=' + copa);
+                                        objTag.src = 'heatmapdata.php?nombre=' + nombre + '&esta=' + esta + '&copa=' + copa;
+                                        dialog = document.getElementById('Inventario');
+                                        dialog.style.display = 'block';
+                                        thelist.value = 0;
+                                    }
+                                }
+                                function descargarExcel() {
+//                                alert("HOLa");
+//                                    $("#datos_a_enviar").val($("<div>").append($("#miyazaki").eq(0).clone()).html());
+                                    var contenido = document.getElementById('datos_a_enviar');
+                                    var contenidoTabla = document.getElementById('div1').innerHTML;
+                                    contenido.value = contenidoTabla;
+//                                    alert(contenido.value);
+//                                    $("#formResultados").submit();
+                                }
+
+                                function excel() {
+                                    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#div1').html()));
+                                    e.preventDefault();
+                                }
+
+                            </script>
+                            <div class="col-sm-6 text-left" >
+                                <h4><b>ESTACION: GUAYAQUIL (FACULTAD CCNN)
+                                    </b>
+                                </h4>
+                            </div>
+                            <div class="col-sm-6 text-right" >
+                                <!--<button class="btn-primary" id="btnExport" onclick="descargarExcel()" >Exportar <img src="images/excel.png" width="20" height="20" border="0" /></button>-->
+                                <input type="button" id="btnExport" value=" Exportar Tabla a Excel " onclick="excel();"/>
+
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class = "row"><div id="div1" class = "col-xs-12 "><table id = "miyazaki" border = "1"><thead><tr><th >FECHA HORA<br/>(GMT-5)</th><th ><br>HUMEDAD RELATIVA DEL AIRE</br>(%)<br/>INST</th><th ><br>HUMEDAD RELATIVA DEL AIRE</br>(%)<br/>MAX</th><th ><br>HUMEDAD RELATIVA DEL AIRE</br>(%)<br/>MIN</th><th ><br>PRECIPITACION</br>(mm)<br/>SUM</th><th ><br>PRESION ATMOSFERICA</br>(hPa)<br/>INST</th><th ><br>TEMPERATURA AIRE</br>(°C)<br/>INST</th><th ><br>TEMPERATURA AIRE</br>(°C)<br/>MAX</th><th ><br>TEMPERATURA AIRE</br>(°C)<br/>MIN</th><th ><br>VIENTO DIRECCION</br>(°)<br/>INST</th><th ><br>VIENTO VELOCIDAD</br>(m/s)<br/>INST</th></tr></thead><tbody><tr><td align = "center">2020-08-07 23:00:00</td><td align = "center"> 64</td><td align = "center"> </td><td align = "center"> </td><td align = "center"> </td><td align = "center"> 600.2</td><td align = "center"> 23.8</td><td align = "center"> </td><td align = "center"> </td><td align = "center"> 166</td><td align = "center"> 1</td></tr><tr><td align = "center">2020-08-07 22:00:00</td><td align = "center"> 69</td><td align = "center"> 69</td><td align = "center"> 64</td><td align = "center"> 0</td><td align = "center"> 599.4</td><td align = "center"> 23.5</td><td align = "center"> 23.8</td><td align = "center"> 23.2</td><td align = "center"> 143</td><td align = "center"> 1.2</td></tr><tr><td align = "center">2020-08-07 21:00:00</td><td align = "center"> 71</td><td align = "center"> 71</td><td align = "center"> 69</td><td align = "center"> 0</td><td align = "center"> 641.1</td><td align = "center"> 23.5</td><td align = "center"> 23.6</td><td align = "center"> 23.2</td><td align = "center"> 174</td><td align = "center"> 2.5</td></tr><tr><td align = "center">2020-08-07 20:00:00</td><td align = "center"> 66</td><td align = "center"> 71</td><td align = "center"> 66</td><td align = "center"> 0</td><td align = "center"> 636.6</td><td align = "center"> 24.7</td><td align = "center"> 24.7</td><td align = "center"> 23.4</td><td align = "center"> 182</td><td align = "center"> 4.1</td></tr><tr><td align = "center">2020-08-07 19:00:00</td><td align = "center"> 65</td><td align = "center"> 66</td><td align = "center"> 63</td><td align = "center"> 0</td><td align = "center"> 651.2</td><td align = "center"> 26.3</td><td align = "center"> 26.4</td><td align = "center"> 24.7</td><td align = "center"> 166</td><td align = "center"> 1.9</td></tr><tr><td align = "center">2020-08-07 18:00:00</td><td align = "center"> 63</td><td align = "center"> 66</td><td align = "center"> 63</td><td align = "center"> 0</td><td align = "center"> 737.7</td><td align = "center"> 27.4</td><td align = "center"> 27.4</td><td align = "center"> 26.3</td><td align = "center"> 141</td><td align = "center"> 1.3</td></tr><tr><td align = "center">2020-08-07 17:00:00</td><td align = "center"> 59</td><td align = "center"> 63</td><td align = "center"> 54</td><td align = "center"> 0</td><td align = "center"> 799.5</td><td align = "center"> 29</td><td align = "center"> 29.6</td><td align = "center"> 27.3</td><td align = "center"> 134</td><td align = "center"> 1.8</td></tr><tr><td align = "center">2020-08-07 16:00:00</td><td align = "center"> 51</td><td align = "center"> 59</td><td align = "center"> 50</td><td align = "center"> 0</td><td align = "center"> 872.6</td><td align = "center"> 30.6</td><td align = "center"> 31.2</td><td align = "center"> 28.9</td><td align = "center"> 109</td><td align = "center"> 1.3</td></tr><tr><td align = "center">2020-08-07 15:00:00</td><td align = "center"> 48</td><td align = "center"> 52</td><td align = "center"> 46</td><td align = "center"> 0</td><td align = "center"> 832</td><td align = "center"> 31.8</td><td align = "center"> 32.7</td><td align = "center"> 30.4</td><td align = "center"> 32</td><td align = "center"> 1.5</td></tr><tr><td align = "center">2020-08-07 14:00:00</td><td align = "center"> 49</td><td align = "center"> 50</td><td align = "center"> 46</td><td align = "center"> 0</td><td align = "center"> 837.6</td><td align = "center"> 31.1</td><td align = "center"> 32.6</td><td align = "center"> 30.8</td><td align = "center"> 127</td><td align = "center"> 0.6</td></tr><tr><td align = "center">2020-08-07 13:00:00</td><td align = "center"> 46</td><td align = "center"> 49</td><td align = "center"> 45</td><td align = "center"> 0</td><td align = "center"> 817.6</td><td align = "center"> 31.5</td><td align = "center"> 32.5</td><td align = "center"> 30.7</td><td align = "center"> 296</td><td align = "center"> 0.6</td></tr><tr><td align = "center">2020-08-07 12:00:00</td><td align = "center"> 49</td><td align = "center"> 52</td><td align = "center"> 44</td><td align = "center"> 0</td><td align = "center"> 739.7</td><td align = "center"> 30.5</td><td align = "center"> 32.3</td><td align = "center"> 29.7</td><td align = "center"> 55</td><td align = "center"> 3.9</td></tr><tr><td align = "center">2020-08-07 11:00:00</td><td align = "center"> 54</td><td align = "center"> 54</td><td align = "center"> 47</td><td align = "center"> 0</td><td align = "center"> 711.6</td><td align = "center"> 28.7</td><td align = "center"> 31.4</td><td align = "center"> 28.5</td><td align = "center"> 305</td><td align = "center"> 1.2</td></tr><tr><td align = "center">2020-08-07 10:00:00</td><td align = "center"> 62</td><td align = "center"> 65</td><td align = "center"> 52</td><td align = "center"> 0</td><td align = "center"> 685</td><td align = "center"> 26.3</td><td align = "center"> 29.2</td><td align = "center"> 25.3</td><td align = "center"> 284</td><td align = "center"> 0.1</td></tr><tr><td align = "center">2020-08-07 09:00:00</td><td align = "center"> 66</td><td align = "center"> 68</td><td align = "center"> 59</td><td align = "center"> 0</td><td align = "center"> 684</td><td align = "center"> 24.7</td><td align = "center"> 26.9</td><td align = "center"> 24.4</td><td align = "center"> 202</td><td align = "center"> 1.6</td></tr><tr><td align = "center">2020-08-07 08:00:00</td><td align = "center"> 75</td><td align = "center"> 76</td><td align = "center"> 66</td><td align = "center"> 0</td><td align = "center"> 570.7</td><td align = "center"> 22.9</td><td align = "center"> 24.8</td><td align = "center"> 22.4</td><td align = "center"> 170</td><td align = "center"> 1.6</td></tr><tr><td align = "center">2020-08-07 07:00:00</td><td align = "center"> 85</td><td align = "center"> 85</td><td align = "center"> 75</td><td align = "center"> 0</td><td align = "center"> 577</td><td align = "center"> 20.8</td><td align = "center"> 22.9</td><td align = "center"> 20.5</td><td align = "center"> 160</td><td align = "center"> 1</td></tr><tr><td align = "center">2020-08-07 06:00:00</td><td align = "center"> 88</td><td align = "center"> 89</td><td align = "center"> 85</td><td align = "center"> 0</td><td align = "center"> 556.2</td><td align = "center"> 20.3</td><td align = "center"> 20.8</td><td align = "center"> 19.9</td><td align = "center"> 155</td><td align = "center"> 0.4</td></tr><tr><td align = "center">2020-08-07 05:00:00</td><td align = "center"> 86</td><td align = "center"> 88</td><td align = "center"> 86</td><td align = "center"> 0</td><td align = "center"> 564.5</td><td align = "center"> 20.7</td><td align = "center"> 20.7</td><td align = "center"> 20.1</td><td align = "center"> 160</td><td align = "center"> 1.9</td></tr><tr><td align = "center">2020-08-07 04:00:00</td><td align = "center"> 82</td><td align = "center"> 87</td><td align = "center"> 82</td><td align = "center"> 0</td><td align = "center"> 552.5</td><td align = "center"> 21.5</td><td align = "center"> 21.5</td><td align = "center"> 20.5</td><td align = "center"> 149</td><td align = "center"> 1.5</td></tr><tr><td align = "center">2020-08-07 03:00:00</td><td align = "center"> 82</td><td align = "center"> 84</td><td align = "center"> 82</td><td align = "center"> 0</td><td align = "center"> 552.3</td><td align = "center"> 21.5</td><td align = "center"> 21.6</td><td align = "center"> 21.1</td><td align = "center"> 152</td><td align = "center"> 1.1</td></tr><tr><td align = "center">2020-08-07 02:00:00</td><td align = "center"> 80</td><td align = "center"> 82</td><td align = "center"> 79</td><td align = "center"> 0</td><td align = "center"> 550.5</td><td align = "center"> 21.7</td><td align = "center"> 21.8</td><td align = "center"> 21.4</td><td align = "center"> 155</td><td align = "center"> 0.9</td></tr><tr><td align = "center">2020-08-07 01:00:00</td><td align = "center"> 81</td><td align = "center"> 81</td><td align = "center"> 80</td><td align = "center"> 0</td><td align = "center"> 554.9</td><td align = "center"> 21.8</td><td align = "center"> 21.9</td><td align = "center"> 21.5</td><td align = "center"> 163</td><td align = "center"> 1.6</td></tr><tbody></table></div></div>
+                    <script >
+                        $(function () {
+                            $('#humedad1').highcharts({
+                                title: {
+                                    text: 'HUMEDAD RELATIVA DEL AIRE',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    labels: {
+                                        rotation: -45,
+                                        step: 2 // displays every second category
+
+                                    },
+                                    categories: ["2020-08-07 01:00:00","2020-08-07 02:00:00","2020-08-07 03:00:00","2020-08-07 04:00:00","2020-08-07 05:00:00","2020-08-07 06:00:00","2020-08-07 07:00:00","2020-08-07 08:00:00","2020-08-07 09:00:00","2020-08-07 10:00:00","2020-08-07 11:00:00","2020-08-07 12:00:00","2020-08-07 13:00:00","2020-08-07 14:00:00","2020-08-07 15:00:00","2020-08-07 16:00:00","2020-08-07 17:00:00","2020-08-07 18:00:00","2020-08-07 19:00:00","2020-08-07 20:00:00","2020-08-07 21:00:00","2020-08-07 22:00:00","2020-08-07 23:00:00"],
+                                    dateTimeLabelFormats: {// don't display the dummy year
+                                        month: '%e. %b',
+                                        year: '%b'
+                                    }
+
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'HUMEDAD RELATIVA DEL AIRE(%)'
+                                    },
+                                    plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }]
+                                },
+                                tooltip: {
+                                    valueSuffix: '%',
+                                    shared: true
+
+                                },
+                                scrollbar: {
+                                    enabled: true
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                series: [{
+                                        name: 'HUMEDAD RELATIVA DEL AIRE(INST)',
+                                        data: [81,80,82,82,86,88,85,75,66,62,54,49,46,49,48,51,59,63,65,66,71,69,64],
+                                        color: '#000000'
+                                    },
+                                    {
+                                        name: 'HUMEDAD RELATIVA DEL AIRE(MAX)',
+                                        data: [81,82,84,87,88,89,85,76,68,65,54,52,49,50,52,59,63,66,66,71,71,69,null],
+                                        color: '#FC0B0B'
+                                    },
+                                    {
+                                        name: 'HUMEDAD RELATIVA DEL AIRE(MIN)',
+                                        data: [80,79,82,82,86,85,75,66,59,52,47,44,45,46,46,50,54,63,63,66,69,64,null],
+                                        color: '#2E2EFE'
+                                    }
+                                ]
+                            });
+                        });
+                    </script>
+                    <script >
+                        $(function () {
+                            $('#temperatura1').highcharts({
+                                title: {
+                                    text: 'TEMPERATURA AIRE',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    labels: {
+                                        rotation: -45,
+                                        step: 2 // displays every second category
+                                    },
+                                    categories: ["2020-08-07 01:00:00","2020-08-07 02:00:00","2020-08-07 03:00:00","2020-08-07 04:00:00","2020-08-07 05:00:00","2020-08-07 06:00:00","2020-08-07 07:00:00","2020-08-07 08:00:00","2020-08-07 09:00:00","2020-08-07 10:00:00","2020-08-07 11:00:00","2020-08-07 12:00:00","2020-08-07 13:00:00","2020-08-07 14:00:00","2020-08-07 15:00:00","2020-08-07 16:00:00","2020-08-07 17:00:00","2020-08-07 18:00:00","2020-08-07 19:00:00","2020-08-07 20:00:00","2020-08-07 21:00:00","2020-08-07 22:00:00","2020-08-07 23:00:00"],
+                                    dateTimeLabelFormats: {// don't display the dummy year
+                                        month: '%e. %b',
+                                        year: '%b'
+                                    }
+
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'TEMPERATURA AIRE(°C)'
+                                    },
+                                    plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }]
+                                },
+                                tooltip: {
+                                    valueSuffix: '°C',
+                                    shared: true
+                                },
+                                scrollbar: {
+                                    enabled: true
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                series: [{
+                                        name: 'TEMPERATURA AIRE(INST)',
+                                        data: [21.8,21.7,21.5,21.5,20.7,20.3,20.8,22.9,24.7,26.3,28.7,30.5,31.5,31.1,31.8,30.6,29,27.4,26.3,24.7,23.5,23.5,23.8],
+                                        color: '#000000'
+                                    },
+                                    {
+                                        name: 'TEMPERATURA AIRE(MAX)',
+                                        data: [21.9,21.8,21.6,21.5,20.7,20.8,22.9,24.8,26.9,29.2,31.4,32.3,32.5,32.6,32.7,31.2,29.6,27.4,26.4,24.7,23.6,23.8,null],
+                                        color: '#FC0B0B'
+                                    },
+                                    {
+                                        name: 'TEMPERATURA AIRE(MIN)',
+                                        data: [21.5,21.4,21.1,20.5,20.1,19.9,20.5,22.4,24.4,25.3,28.5,29.7,30.7,30.8,30.4,28.9,27.3,26.3,24.7,23.4,23.2,23.2,null],
+                                        color: '#2E2EFE'
+
+
+                                    }
+                                ]
+                            });
+                        });
+                    </script>
+                    <script >
+                        $(function () {
+                            $('#presion1').highcharts({
+                                title: {
+                                    text: 'PRESION ATMOSFERICA',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    labels: {
+                                        rotation: -45,
+                                        step: 2 // displays every second category
+                                    },
+                                    categories: ["2020-08-07 01:00:00","2020-08-07 02:00:00","2020-08-07 03:00:00","2020-08-07 04:00:00","2020-08-07 05:00:00","2020-08-07 06:00:00","2020-08-07 07:00:00","2020-08-07 08:00:00","2020-08-07 09:00:00","2020-08-07 10:00:00","2020-08-07 11:00:00","2020-08-07 12:00:00","2020-08-07 13:00:00","2020-08-07 14:00:00","2020-08-07 15:00:00","2020-08-07 16:00:00","2020-08-07 17:00:00","2020-08-07 18:00:00","2020-08-07 19:00:00","2020-08-07 20:00:00","2020-08-07 21:00:00","2020-08-07 22:00:00","2020-08-07 23:00:00"],
+                                    dateTimeLabelFormats: {// don't display the dummy year
+                                        month: '%e. %b',
+                                        year: '%b'
+                                    }
+
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'PRESION ATMOSFERICA(hPa)'
+                                    },
+                                    plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'hPa',
+                                    shared: true
+                                },
+                                scrollbar: {
+                                    enabled: true
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                series: [{
+                                        name: 'PRESION ATMOSFERICA(INST)',
+                                        data: [554.9,550.5,552.3,552.5,564.5,556.2,577,570.7,684,685,711.6,739.7,817.6,837.6,832,872.6,799.5,737.7,651.2,636.6,641.1,599.4,600.2]                                    }
+                                ]
+                            });
+                        });
+                    </script>
+
+
+
+                    <script >
+                        $(function () {
+                            $('#precipitacion1').highcharts({
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'PRECIPITACION',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    labels: {
+                                        rotation: -45,
+                                        step: 2 // displays every second category
+                                    },
+                                    categories: ["2020-08-07 01:00:00","2020-08-07 02:00:00","2020-08-07 03:00:00","2020-08-07 04:00:00","2020-08-07 05:00:00","2020-08-07 06:00:00","2020-08-07 07:00:00","2020-08-07 08:00:00","2020-08-07 09:00:00","2020-08-07 10:00:00","2020-08-07 11:00:00","2020-08-07 12:00:00","2020-08-07 13:00:00","2020-08-07 14:00:00","2020-08-07 15:00:00","2020-08-07 16:00:00","2020-08-07 17:00:00","2020-08-07 18:00:00","2020-08-07 19:00:00","2020-08-07 20:00:00","2020-08-07 21:00:00","2020-08-07 22:00:00","2020-08-07 23:00:00"],
+                                    dateTimeLabelFormats: {// don't display the dummy year
+                                        month: '%e. %b',
+                                        year: '%b'
+                                    }
+
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'PRECIPITACION(mm)'
+                                    },
+                                    plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'mm',
+                                    shared: true
+                                },
+                                scrollbar: {
+                                    enabled: true
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                series: [{
+                                        name: 'PRECIPITACION(SUM)',
+                                        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,null]                                    },
+                                    {
+                                        name: '()',
+                                        data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]                                    }
+                                ]
+                            });
+                        });
+                    </script>
+                    <script>
+                        $(function () {
+                            var categories = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+                            inicializarViento();
+                            $('#windrose').highcharts({
+                                series: [{
+                                        name: 'VIENTO VELOCIDAD(INST)',
+                                        data: windDataJSON
+
+                                    }
+
+                                ],
+                                chart: {
+                                    polar: true,
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'ROSA DE LOS VIENTOS'
+                                },
+                                pane: {
+                                    size: '85%'
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                xAxis: {
+                                    min: 0,
+                                    max: 360,
+                                    type: '',
+                                    tickInterval: 22.5,
+                                    tickmarkPlacement: 'on',
+                                    labels: {
+                                        formatter: function () {
+
+                                            return categories[this.value / 22.5] + '°';
+                                        }
+                                    }
+
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    endOnTick: false,
+                                    showLastLabel: true,
+                                    title: {
+                                        text: 'Velocidad (m/s)'
+                                    },
+                                    labels: {
+                                        formatter: function () {
+                                            return this.value + 'm/s';
+                                        }
+                                    },
+                                    reversedStacks: true
+                                },
+                                tooltip: {
+                                    valueSuffix: 'm/s'
+
+                                },
+                                plotOptions: {
+                                    series: {
+                                        stacking: 'normal',
+                                        shadow: false,
+                                        groupPadding: 0,
+                                        pointPlacement: 'on'
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                    <script >
+                        $(function () {
+                            $('#nivel').highcharts({
+                                title: {
+                                    text: '',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    labels: {
+                                        rotation: -45,
+                                        step: 2 // displays every second category
+                                    },
+                                    categories: ["2020-08-07 01:00:00","2020-08-07 02:00:00","2020-08-07 03:00:00","2020-08-07 04:00:00","2020-08-07 05:00:00","2020-08-07 06:00:00","2020-08-07 07:00:00","2020-08-07 08:00:00","2020-08-07 09:00:00","2020-08-07 10:00:00","2020-08-07 11:00:00","2020-08-07 12:00:00","2020-08-07 13:00:00","2020-08-07 14:00:00","2020-08-07 15:00:00","2020-08-07 16:00:00","2020-08-07 17:00:00","2020-08-07 18:00:00","2020-08-07 19:00:00","2020-08-07 20:00:00","2020-08-07 21:00:00","2020-08-07 22:00:00","2020-08-07 23:00:00"],
+                                    dateTimeLabelFormats: {// don't display the dummy year
+                                        month: '%e. %b',
+                                        year: '%b'
+                                    }
+
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '()'
+                                    },
+                                    plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }]
+                                },
+                                tooltip: {
+                                    valueSuffix: '',
+                                    shared: true
+                                },
+                                scrollbar: {
+                                    enabled: true
+                                },
+                                legend: {// configuración de la leyenda
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    borderWidth: 1
+                                },
+                                series: [{
+                                        name: '()',
+                                        data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]                                    }
+                                ]
+                            });
+                        });
+                    </script>
+                    <script language="javascript">
+                        // code to create a data set that looks like data: [[5, 2], [6, 3], [8, 2]]
+                        var windDirection, windSpeed, fechas, windDirectionJSON, windSpeedJSON, windDataJSON, fechasJSON;
+                        function inicializarViento() {
+                            windDirection = "[166,143,174,182,166,141,134,109,32,127,296,55,305,284,202,170,160,155,160,149,152,155,163]";
+                            windSpeed = "[1,1.2,2.5,4.1,1.9,1.3,1.8,1.3,1.5,0.6,0.6,3.9,1.2,0.1,1.6,1.6,1,0.4,1.9,1.5,1.1,0.9,1.6]";
+                            fechas ="[\"2020-08-07 23:00:00\",\"2020-08-07 22:00:00\",\"2020-08-07 21:00:00\",\"2020-08-07 20:00:00\",\"2020-08-07 19:00:00\",\"2020-08-07 18:00:00\",\"2020-08-07 17:00:00\",\"2020-08-07 16:00:00\",\"2020-08-07 15:00:00\",\"2020-08-07 14:00:00\",\"2020-08-07 13:00:00\",\"2020-08-07 12:00:00\",\"2020-08-07 11:00:00\",\"2020-08-07 10:00:00\",\"2020-08-07 09:00:00\",\"2020-08-07 08:00:00\",\"2020-08-07 07:00:00\",\"2020-08-07 06:00:00\",\"2020-08-07 05:00:00\",\"2020-08-07 04:00:00\",\"2020-08-07 03:00:00\",\"2020-08-07 02:00:00\",\"2020-08-07 01:00:00\"]";
+                            fechasJSON = JSON.parse(fechas);
+                            windDirectionJSON = JSON.parse(windDirection);
+                            windSpeedJSON = JSON.parse(windSpeed);
+                            //            alert(windDirectionJSON);
+
+                            windDataJSON = [];
+                            for (i = 0; i < fechasJSON.length; i++) {
+
+                                var item = {
+                                    name: fechasJSON[i],
+                                    x: windDirectionJSON[i],
+                                    y: windSpeedJSON[i]
+                                };
+                                //                windDataJSON.push([ windDirectionJSON[i], windSpeedJSON[i] ]);
+                                windDataJSON.push(item);
+                            }
+
+                            windDataJSON.sort(function (a, b) {
+                                return a[0] - b[0];
+                            }); // the function returns the product of p1 and p2
+                        }
+
+
+
+
+                    </script>
+
+                    <div id="Humedad" class="modal"  >
+                        <!-- Modal content -->
+                        <div class="modal-content" >
+
+                            <div class="modal-body">
+
+                                <div id="humedad1" style="position: relative; width: 100%" ></div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Temperatura" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div id="temperatura1" style="position: relative; width: 100%" ></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Presion" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+
+                            <div class="modal-body">  
+                                <div id="presion1" style="position: relative; width: 100%" ></div>               
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Precipitacion" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+
+                            <div class="modal-body">   
+                                <div id="precipitacion1" style="position: relative; width: 100%"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Viento" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div id="windrose" style="position: relative; width: 100%"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="Nivel" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div id="nivel" style="position: relative; width: 100%"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Inventario" class="modal" >
+                        <!-- Modal content -->
+                        <div class="modal-content" >
+                            <div class="modal-body">
+                                <iframe id="contentarea" width="100%" height="65%" src="" style="border: none"></iframe>
+                            </div>
+                            <div class="modal-footer">
+                                <button type='button' style="color: #000" onclick="cerrarModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+    <script>
+
+        var headertext = [];
+        var headers = document.querySelectorAll("#miyazaki th"),
+                tablerows = document.querySelectorAll("#miyazaki th"),
+                tablebody = document.querySelector("#miyazaki tbody");
+        for (var i = 0; i < headers.length; i++) {
+            var current = headers[i];
+            headertext.push(current.textContent.replace(/\r?\n|\r/, ""));
+        }
+        for (var i = 0, row; row = tablebody.rows[i]; i++) {
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                col.setAttribute("data-th", headertext[j]);
+            }
+        }
+    </script> 
+</html>

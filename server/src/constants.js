@@ -6,11 +6,12 @@ module.exports = {
   ENV: process.env.NODE_ENV || "development",
   DATABASE: {
     development: {
-      host: "localhost",
-      database: "iot",
+      host: process.env.host || "localhost",
+      database: process.env.database || "iot",
     },
     production: {
       url: process.env.MONGO_URL,
     },
   },
+  CRON_HOUR: "0 * * * *"
 };

@@ -7,4 +7,8 @@ export default {
   pathSet: "pathSet",
   pathGet: "pathGet",
   userGet: "userGet",
+
+  inamhi: 'inamhi',
+  inamhi_page: 'inamhi_page',
+  inamhi_page_get: "inamhi_page_get"
 };

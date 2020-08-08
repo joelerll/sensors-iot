@@ -16,7 +16,6 @@ export default {
   mutations: {
     [types.login]: (state, payload) => {
       state.is_logged = true;
-      console.log(payload);
       state.first_name = payload.first_name;
       state.last_name = payload.last_name;
       state.avatar = payload.avatar;
