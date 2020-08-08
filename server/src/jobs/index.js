@@ -55,7 +55,7 @@ module.exports = {
                     }
                     new_cell.headers = table_headers
                     if (!_.isEmpty(new_cell.data)) {
-                        DB.Mongo.Inamhi.create(new_cell);
+                        await DB.Mongo.Inamhi.create(new_cell);
                     }
                 }
                 console.log("==== finish load city: ", city)  
