@@ -18,11 +18,11 @@ export default {
   },
   actions: {
     [types.inamhi_page]: ({ commit }, payload) => {
+      console.log(payload)
       return new Promise((resolve, reject) => {
         return fetch
-          .Get(fetch.ENDPOINTS.INNAHI.PAGE)
+          .Post(fetch.ENDPOINTS.INNAHI.PAGE, payload)
           .then((resp) => {
-            console.log(payload)
             resolve(resp.data.data);
             commit(types.inamhi_page, resp.data.data);
           })

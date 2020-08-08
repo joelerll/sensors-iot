@@ -5,7 +5,7 @@ const InamhiSchema = Schema(
     {
         headers: { type: Array },
         data: {
-          type: Object
+          type: Array,
         },
         id_esta: { type: Number },
         name: { type: String },

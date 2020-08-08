@@ -22,7 +22,7 @@ describe("Auth", function () {
 
   describe("Login", () => {
     it("Login Success", async () => {
-      await Jobs.inamhi(DB)
+      await Jobs.Inamhi(DB)
         // const config = {
         //     url: "http://186.42.174.236",
         //     path: "InamhiEmas/datos.php",
