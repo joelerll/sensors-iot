@@ -32,7 +32,7 @@ module.exports = {
                         if (cell_html.includes('No existen datos para esta estaci')) {
                             console.info("Migration no data for: ", city)
                             noData = true
-                            // break
+                            break;
                         }
                         if (cont == 0) {
                             new_cell['id_esta'] = city.id_esta

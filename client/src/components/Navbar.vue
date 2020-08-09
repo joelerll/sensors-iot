@@ -67,7 +67,7 @@
       <template v-slot:append @click="logout">
         <v-list>
           <v-list-item link>
-            <v-list-item-icon>
+            <v-list-item-icon v-if="mini">
               <v-icon color="red">mdi-exit-to-app</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
