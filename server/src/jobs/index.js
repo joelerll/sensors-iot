@@ -26,26 +26,20 @@ module.exports = {
                     const new_cell = {}
                     new_cell.data = []
                     let noData = false
+                    let fecha = ""
                     for (const cell of row.children) {
                         const cell_html = $(cell).html()
                         if (cell_html.includes('No existen datos para esta estaci')) {
                             console.info("Migration no data for: ", city)
                             noData = true
-                            break;
+                            // break
                         }
                         if (cont == 0) {
-                            const exists = await DB.Mongo.Inamhi.findRow({
-                                fecha: cell_html, 
-                                id_esta: city.id_esta,
-                                type: city.type
-                            })
-                            if (exists) {
-                                break;
-                            }
                             new_cell['id_esta'] = city.id_esta
                             new_cell['type'] = city.type
                             new_cell['name'] = city.name
                             new_cell['fecha'] = cell_html
+                            fecha = new_cell['fecha']
                         }
                         new_cell['data'].push(_.trim(cell_html))
                         cont++
@@ -54,7 +48,15 @@ module.exports = {
                         break
                     }
                     new_cell.headers = table_headers
-                    if (!_.isEmpty(new_cell.data)) {
+                    const findQuery = {
+                        fecha, 
+                        id_esta: city.id_esta,
+                        type: city.type
+                    }
+                    const exists = await DB.Mongo.Inamhi.findRow(findQuery)
+                    if (exists) {
+                        await DB.Mongo.Inamhi.updateOne(findQuery, { $set: { headers:  new_cell.headers, data: new_cell.data } });
+                    } else {
                         await DB.Mongo.Inamhi.create(new_cell);
                     }
                 }
