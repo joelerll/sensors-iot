@@ -8,7 +8,7 @@
         </template>
       </v-data-table>
       <v-container fluid v-show="current_type === 'METEOROLOGICA'">
-        <v-row >
+        <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
               <v-card-title>Presión Atmosférica</v-card-title>
@@ -21,33 +21,34 @@
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
               <v-card-title>Humedad Relativa del aire</v-card-title>
-              <line-chart   :chartData="humedad_relativa_aire_data" :options="presion_atmosferica_options"/>
+              <line-chart
+                :chartData="humedad_relativa_aire_data"
+                :options="presion_atmosferica_options"
+              />
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-      <v-container fluid  v-show="current_type === 'METEOROLOGICA'">
+      <v-container fluid v-show="current_type === 'METEOROLOGICA'">
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
               <v-card-title>Precipitación</v-card-title>
-              <bar-chart  :chartData="precipitacion_data" :options="precipitacion_options"/>
+              <bar-chart :chartData="precipitacion_data" :options="precipitacion_options" />
             </v-card>
           </v-col>
-          <v-col cols="18" sm="6">
-          </v-col>
+          <v-col cols="18" sm="6"></v-col>
         </v-row>
       </v-container>
-      <v-container fluid  v-show="current_type === 'HIDROLOGICA'">
+      <v-container fluid v-show="current_type === 'HIDROLOGICA'">
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
               <v-card-title>NIVEL DEL AGUA</v-card-title>
-              <bar-chart  :chartData="nive_agua_data" :options="nive_agua_options"/>
+              <bar-chart :chartData="nive_agua_data" :options="nive_agua_options" />
             </v-card>
           </v-col>
-          <v-col cols="18" sm="6">
-          </v-col>
+          <v-col cols="18" sm="6"></v-col>
         </v-row>
       </v-container>
     </v-container>
@@ -61,7 +62,7 @@ import BarChart from "../../components/charts/BarChart";
 export default {
   components: {
     LineChart,
-    BarChart
+    BarChart,
   },
   name: "Inamhi",
   methods: {
@@ -84,14 +85,14 @@ export default {
         labels,
         datasets: [
           {
-            label: "Temperatura aire(INST)",
+            label: "Precipitación (mm)",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data,
             fill: false,
           },
         ],
-      }
+      };
     },
     nivelAguaChar(labels, data) {
       return {
@@ -105,10 +106,10 @@ export default {
             fill: false,
           },
         ],
-      }
+      };
     },
     humedadRelativaAireChar(labels, datacharinst, datacharmax, datacharmin) {
-      return{
+      return {
         labels,
         datasets: [
           {
@@ -133,7 +134,7 @@ export default {
             fill: false,
           },
         ],
-      }
+      };
     },
     select(data) {
       this.current_type = data.type;
@@ -207,7 +208,12 @@ export default {
           }
         }
       }
-      const res = this.humedadRelativaAireChar(labels, datacharinst, datacharmax, datacharmin);
+      const res = this.humedadRelativaAireChar(
+        labels,
+        datacharinst,
+        datacharmax,
+        datacharmin
+      );
       return res;
     },
     precipitacion_data() {
@@ -230,7 +236,7 @@ export default {
       const res = this.precipitacionChar(labels, datachar);
       return res;
     },
-    nive_agua_data () {
+    nive_agua_data() {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
       const labels = [];
       const datachar = [];
@@ -277,7 +283,7 @@ export default {
       const parse = [];
       let cont = 0;
       if (!data[0]) {
-        return []
+        return [];
       }
       for (const head of data[0].headers) {
         if (cont === 0) {
@@ -489,7 +495,7 @@ export default {
             },
           ],
         },
-      }
+      },
       // delete
     };
   },
