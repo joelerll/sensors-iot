@@ -30,7 +30,7 @@
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
-              <v-card-title>Temperatura Aire</v-card-title>
+              <v-card-title>Precipitación</v-card-title>
               <bar-chart  :chartData="precipitacion_data" :options="precipitacion_options"/>
             </v-card>
           </v-col>
