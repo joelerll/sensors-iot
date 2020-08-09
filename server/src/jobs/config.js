@@ -8,25 +8,35 @@ module.exports = {
             type: "METEOROLOGICA"
         },
         {
-            id_esta: 61826,
-            name: "SAN PABLO EN PALMAR",
-            type: "HIDROLOGICA",
+            id_esta: 63806,
+            name: "COE-MONTE BELLO",
+            type: "METEOROLOGICA"
         },
         {
-            name: "ESMERALDAS DJ SADE",
-            id_esta: 61699,
-            type: "HIDROLOGICA"
-        },
-        {
-            name: 'PUERTO ILA',
-            id_esta: 57,
-            type: 'METEOROLOGICA',
-        },
-        {
-            name: 'AGUARICO EN NUEVA LOJA (LA GABARRA)',
-            id_esta: 63965,
-            type: 'HIDROLOGICA',
+            id_esta: 63802,
+            name: "PUERTO HONDO",
+            type: "METEOROLOGICA"
         }
+        // {
+        //     id_esta: 61826,
+        //     name: "SAN PABLO EN PALMAR",
+        //     type: "HIDROLOGICA",
+        // },
+        // {
+        //     name: "ESMERALDAS DJ SADE",
+        //     id_esta: 61699,
+        //     type: "HIDROLOGICA"
+        // },
+        // {
+        //     name: 'PUERTO ILA',
+        //     id_esta: 57,
+        //     type: 'METEOROLOGICA',
+        // },
+        // {
+        //     name: 'AGUARICO EN NUEVA LOJA (LA GABARRA)',
+        //     id_esta: 63965,
+        //     type: 'HIDROLOGICA',
+        // }
     ],
     inamhi: {
         

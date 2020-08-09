@@ -13,6 +13,9 @@ import UsersShow from "../views/User/UsersShow.vue";
 // Inamhi
 import Inamhi from "../views/Inamhi/Inamhi.vue";
 
+// Agencia Espacial
+import AgenciaEspacial from "../views/AgenciaEspacial/AgenciaEspacial.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,6 +46,11 @@ const routes = [
     path: "/inamhi",
     name: "Inamhi",
     component: Inamhi
+  },
+  {
+    path: "/agencia-espacial",
+    name: "AgenciaEspacial",
+    component: AgenciaEspacial
   },
   {
     path: "*",

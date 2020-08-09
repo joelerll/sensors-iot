@@ -324,35 +324,19 @@ export default {
           },
         },
         {
-          text: "SAN PABLO EN PALMAR - HIDROLOGICA",
+          text: "OE-MONTE BELLO - METEOROLOGICA",
           value: {
-            id_esta: 61826,
-            name: "SAN PABLO EN PALMAR",
-            type: "HIDROLOGICA",
-          },
-        },
-        {
-          text: "ESMERALDAS DJ SADE - HIDROLOGICA",
-          value: {
-            name: "ESMERALDAS DJ SADE",
-            id_esta: 61699,
-            type: "HIDROLOGICA",
-          },
-        },
-        {
-          text: "PUERTO ILA - METEOROLOGICA",
-          value: {
-            name: "PUERTO ILA",
-            id_esta: 57,
+            id_esta: 63806,
+            name: "COE-MONTE BELLO",
             type: "METEOROLOGICA",
           },
         },
         {
-          text: "AGUARICO EN NUEVA LOJA (LA GABARRA) - HIDROLOGICA",
+          text: "PUERTO HONDO - METEOROLOGICA",
           value: {
-            name: "AGUARICO EN NUEVA LOJA (LA GABARRA)",
-            id_esta: 63965,
-            type: "HIDROLOGICA",
+            id_esta: 63802,
+            name: "PUERTO HONDO",
+            type: "METEOROLOGICA",
           },
         },
       ],

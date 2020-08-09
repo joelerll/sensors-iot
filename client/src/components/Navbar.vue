@@ -19,10 +19,7 @@
           <v-list-item-title>{{user.first_name}} {{user.last_name}}</v-list-item-title>
           <!-- <v-list-item-subtitle>Admin</v-list-item-subtitle> -->
         </v-list-item-content>
-        <v-btn
-          icon
-          @click.stop="mini = !mini"
-        >
+        <v-btn icon @click.stop="mini = !mini">
           <v-icon color="blue">mdi-chevron-left</v-icon>
         </v-btn>
       </v-list-item>
@@ -54,12 +51,21 @@
         <!-- modules -->
         <v-list-item link @click="goToInamhi">
           <v-list-item-icon>
-            <!-- <v-icon>mdi-weather-lightning</v-icon> -->
-            <img src="@/assets/logo_inamhi_2.png"  width="30" height="30"/>
+            <img src="@/assets/logo_inamhi_2.png" width="30" height="30" />
           </v-list-item-icon>
 
           <v-list-item-content>
             <v-list-item-title>Inamhi</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link @click="goToAgenciaEspacial">
+          <v-list-item-icon>
+            <img src="@/assets/agencia_espacial.png" width="30" height="30" />
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Agencia Espacial</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -117,6 +123,10 @@ export default {
     },
     goToInamhi: function () {
       this.$router.push("/inamhi");
+      this.current_path_name = this.$router.currentRoute.name;
+    },
+    goToAgenciaEspacial: function () {
+      this.$router.push("/agencia-espacial");
       this.current_path_name = this.$router.currentRoute.name;
     },
     goToModule: function () {
