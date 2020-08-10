@@ -10,7 +10,17 @@
 - [ ] Docker file nodejs, mongodb, redis, mysql
 - [ ] Database schema Mysql
 - [ ] Login Admin
-- [ ]
+
+# Last
+
+- [ ] State front de la pagina si se cierra
+- [ ] Refactorizar inamhi
+- [ ] Redis jobs libreria
+- [ ] Filtros de fechas en Inamhi
+- [ ] pm2 script en readme y como hacer el deploy. Local, development. Con los logs
+- [ ] Setear base de datos mysql
+- [ ] .env tracking code con cada environment
+- [ ] cachear redis busquedas de los filtros
 
 https://data.cityofnewyork.us/browse?sortBy=most_accessed&tags=map&utf8=%E2%9C%93&page=2
 https://data.world/dublin-city/8bb757a5-609e-4769-9bc6-b1e2667da2cd

@@ -3,196 +3,101 @@
     <v-container fluid>
       <v-data-table :headers="headers" :items="data" :items-per-page="8" class="elevation-1"></v-data-table>
     </v-container>
+    <v-container fluid>
+        <v-row>
+          <v-col cols="18" sm="6">
+            <v-card class="rounded-lg" tile>
+              <v-card-title>INDICE TEMPERATURA HUMEDAD-VIENTO</v-card-title>
+              <line-chart :chartData="temperatura_data" title="INDICE TEMPERATURA HUMEDAD-VIENTO" xtitle="Fecha" ytitle="INDICE TEMPERATURA HUMEDAD-VIENTO" number="1"/>
+            </v-card>
+          </v-col>
+          <v-col cols="18" sm="6"></v-col>
+        </v-row>
+      </v-container>
   </div>
 </template>
 
 <script>
+import data from "./data.json"
+import LineChart from "../../components/charts/LineChart";
 export default {
   name: "AgenciaEspacial",
+  components: {
+    LineChart,
+  },
+  methods: {
+    temperaturaChar(labels, data) {
+      return {
+        labels,
+        datasets: [
+          {
+            label: "INDICE TEMPERATURA HUMEDAD-VIENTO",
+            backgroundColor: "#36a2eb",
+            borderColor: "#36a2eb",
+            data,
+            fill: false,
+          },
+        ],
+      };
+    },
+  },
+  computed: {
+    temperatura_data() {
+      const labels = []
+      const data = []
+      for (const iterator of this.data) {
+        labels.push(iterator['HORA'])
+          data.push(iterator['INDICE TEMPERATURA HUMEDAD-VIENTO'])
+      }
+      const res = this.temperaturaChar(labels, data)
+      return res;
+    }
+  },
   data() {
     return {
       headers: [
         {
-          text: "Fecha",
-          value: "Fecha",
+          text: "HORA",
+          value: "HORA",
         },
         {
-          text: "Temperatura máxima",
-          value: "Temperatura máxima",
+          text: "TEMPERATURA ",
+          value: "TEMPERATURA ",
         },
         {
-          text: "Temperatura mínima",
-          value: "Temperatura mínima",
+          text: "HUMEDAD",
+          value: "HUMEDAD",
         },
         {
-          text: "Humedad máxima",
-          value: "Humedad máxima",
+          text: "PUNTO DE CONDENSACIÓN",
+          value: "PUNTO DE CONDENSACIÓN",
         },
         {
-          text: "Humedad mínima",
-          value: "Humedad mínima",
+          text: "PRESIÓN ATMOSFERICA",
+          value: "PRESIÓN ATMOSFERICA",
         },
         {
-          text: "Máximo PDC",
-          value: "Máximo PDC",
+          text: "SENSACION TERMICA DEL VIENTO",
+          value: "SENSACION TERMICA DEL VIENTO",
         },
         {
-          text: "Mínimo PDC",
-          value: "Mínimo PDC",
+          text: "INDICE TEMPERATURA HUMEDAD-VIENTO",
+          value: "INDICE TEMPERATURA HUMEDAD-VIENTO",
         },
         {
-          text: "Máxima Barómetro",
-          value: "Máxima Barómetro",
+          text: "INDICE DE CALOR",
+          value: "INDICE DE CALOR",
         },
         {
-          text: "Mínimo Barómetro",
-          value: "Mínimo Barómetro",
+          text: "INDICE DE RADIACIÓN UV",
+          value: "INDICE DE RADIACIÓN UV",
         },
         {
-          text: "Máxima tasa de lluvia",
-          value: "Máxima tasa de lluvia",
-        },
-        {
-          text: "Minima STV",
-          value: "Minima STV",
-        },
-        {
-          text: "Minima STV",
-          value: "Minima STV",
-        },
-        {
-          text: "Minima STV",
-          value: "Minima STV",
-        },
-        {
-          text: "Minima STV",
-          value: "Minima STV",
+          text: "RADIACION SOLAR",
+          value: "RADIACION SOLAR",
         },
       ],
-      data: [
-        {
-          Fecha: "2020/08/01 02:05:00",
-          "Temperatura máxima": "30.9°C",
-          "Temperatura mínima": "20.6°C",
-          "Humedad máxima": "91%",
-          "Humedad mínima": "69%",
-          "Máximo PDC": "25.0°C",
-          "Mínimo PDC": "18.9°C",
-          "Máxima Barómetro": "1013.3 mb",
-          "Mínimo Barómetro": "1009.0 mb",
-          "Máxima tasa de lluvia": "0.0 mm/hr",
-          "Minima STV": "20.6°C",
-          "Máximo índice de calor": "37.2°C",
-          "Máxima UV": "7.3 index",
-          "Máxima radiación solar": "853 W/m²",
-        },
-        {
-          Fecha: "2020/08/01 02:10:00",
-          "Temperatura máxima": "32.9°C",
-          "Temperatura mínima": "25.6°C",
-          "Humedad máxima": "95%",
-          "Humedad mínima": "60%",
-          "Máximo PDC": "22.0°C",
-          "Mínimo PDC": "19.9°C",
-          "Máxima Barómetro": "1014.3 mb",
-          "Mínimo Barómetro": "1011.0 mb",
-          "Máxima tasa de lluvia": "0.0 mm/hr",
-          "Minima STV": "23.6°C",
-          "Máximo índice de calor": "39.2°C",
-          "Máxima UV": "7.5 index",
-          "Máxima radiación solar": "953 W/m²",
-        },
-        {
-          Fecha: "2020/08/01 02:15:00",
-          "Temperatura máxima": "33.9°C",
-          "Temperatura mínima": "22.6°C",
-          "Humedad máxima": "84%",
-          "Humedad mínima": "65%",
-          "Máximo PDC": "23.0°C",
-          "Mínimo PDC": "19.9°C",
-          "Máxima Barómetro": "1013.5 mb",
-          "Mínimo Barómetro": "1010.0 mb",
-          "Máxima tasa de lluvia": "0.0 mm/hr",
-          "Minima STV": "21.6°C",
-          "Máximo índice de calor": "33.2°C",
-          "Máxima UV": "7.3 index",
-          "Máxima radiación solar": "859 W/m²",
-        },
-        {
-          Fecha: "2020/08/01 02:05:00",
-          "Temperatura máxima": "34.9°C",
-          "Temperatura mínima": "25.6°C",
-          "Humedad máxima": "96%",
-          "Humedad mínima": "63%",
-          "Máximo PDC": "23.4°C",
-          "Mínimo PDC": "17.4°C",
-          "Máxima Barómetro": "1012.3 mb",
-          "Mínimo Barómetro": "1009.0 mb",
-          "Máxima tasa de lluvia": "0.0 mm/hr",
-          "Minima STV": "20.6°C",
-          "Máximo índice de calor": "37.2°C",
-          "Máxima UV": "7.3 index",
-          "Máxima radiación solar": "853 W/m²",
-        },
-      ],
-      // headers: [
-      //   {
-      //     text: "Temperatura",
-      //     value: "Temperatura",
-      //   },
-      //   {
-      //     text: "Humedad",
-      //     value: "Humedad",
-      //   },
-      //   {
-      //     text: "Punto de condensación(PDC)",
-      //     value: "Punto de condensación(PDC)",
-      //   },
-      //   {
-      //     text: "Viento",
-      //     value: "Viento",
-      //   },
-      //   {
-      //     text: "Presión Atmosférica",
-      //     value: "Presión Atmosférica",
-      //   },
-      //   {
-      //     text: "Lluvia de hoy",
-      //     value: "Lluvia de hoy",
-      //   },
-      //   {
-      //     text: "Lluvia de hoy",
-      //     value: "Lluvia de hoy",
-      //   },
-      //   {
-      //     text: "Total Tormenta",
-      //     value: "Total Tormenta",
-      //   },
-      //   {
-      //     text: "Lluvia Mensual",
-      //     value: "Lluvia Mensual",
-      //   },
-      //   {
-      //     text: "Lluvia Anual",
-      //     value: "Lluvia Anual",
-      //   },
-      //   {
-      //     text: "Sensación térmica del viento (STV)",
-      //     value: "Sensación térmica del viento (STV)",
-      //   },
-      //   {
-      //     text: "Índice Temperatura-humedad-Viento (THV)",
-      //     value: "Índice Temperatura-Humedad-Viento (THV)",
-      //   },
-      //   {
-      //     text: "Índice de Calor",
-      //     value: "Índice de Calor",
-      //   },
-      //   {
-      //     text: "Índice de radiación UV",
-      //     value: "Radiación Solar",
-      //   },
-      // ],
+      data
     };
   },
 };

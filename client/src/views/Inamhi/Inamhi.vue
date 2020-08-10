@@ -58,7 +58,7 @@
 <script>
 import LineChart from "../../components/charts/LineChart";
 import BarChart from "../../components/charts/BarChart";
-// import chartjs from 'chart.js';
+
 export default {
   components: {
     LineChart,
@@ -324,7 +324,7 @@ export default {
           },
         },
         {
-          text: "OE-MONTE BELLO - METEOROLOGICA",
+          text: "COE-MONTE BELLO - METEOROLOGICA",
           value: {
             id_esta: 63806,
             name: "COE-MONTE BELLO",
