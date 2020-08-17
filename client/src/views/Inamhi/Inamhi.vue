@@ -1,8 +1,77 @@
 <template>
   <div id="Inamhi">
     <v-container fluid>
-      <v-select :items="items" label="Seleccionar" dense v-model="selector" @change="select"></v-select>
-      <v-data-table :headers="headers" :items="data" :items-per-page="8" class="elevation-1">
+      <v-row>
+        <v-col cols="8" sm="8" md="4">
+          <v-menu
+            ref="menu_initial_date"
+            v-model="menu_initial_date"
+            :close-on-content-click="false"
+            :return-value.sync="initial_date"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="format_date_initial"
+                label="Fecha Inicial"
+                prepend-icon="mdi-event"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="initial_date" @input="$refs.menu_initial_date.save(initial_date); menu_initial_date = false">
+              <v-spacer></v-spacer>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-col cols="8" sm="8" md="4">
+          <v-menu
+            ref="menu_end_date"
+            v-model="menu_end_date"
+            :close-on-content-click="false"
+            :return-value.sync="end_date"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="format_date_end"
+                label="Fecha Final"
+                prepend-icon="mdi-event"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="end_date"  @input="$refs.menu_end_date.save(end_date); menu_end_date = false">
+              <v-spacer></v-spacer>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-col cols="8" sm="8" md="4">
+          <v-select :items="items" label="Seleccionar" v-model="selector"></v-select>
+        </v-col>
+      </v-row>
+      <v-row>
+      <v-col cols="8" sm="4" md="4">
+        <v-btn small color="primary" @click="select">Buscar</v-btn>
+      </v-col>
+      <v-col cols="8" sm="4" md="4">
+        <v-btn
+          color="blue"
+          class="ma-2 white--text"
+          fab
+          @click="download"
+        >
+          <v-icon dark>mdi-cloud-download</v-icon>
+        </v-btn>
+      </v-col>
+      </v-row>
+      <v-data-table :loading="table_loading" :headers="headers" :items="data" :items-per-page="8" class="elevation-1">
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
         </template>
@@ -58,6 +127,10 @@
 <script>
 import LineChart from "../../components/charts/LineChart";
 import BarChart from "../../components/charts/BarChart";
+import dayjs from "dayjs"
+import moment from "moment"
+import Papa from 'papaparse'
+dayjs.locale('es')
 
 export default {
   components: {
@@ -66,6 +139,21 @@ export default {
   },
   name: "Inamhi",
   methods: {
+    download() {
+      const csv = Papa.unparse({
+        fields: ["Nombre"],
+        data: [["Joel"]],
+      }, {});
+      const csvData = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+      const url = window.URL.createObjectURL(csvData);
+      let anchor = document.createElement("a");
+      anchor.download = "file.csv";
+      anchor.href = url;
+      anchor.click();
+    },
+    getByRange (date) {
+      console.log(date)
+    },
     presionAtmosfericaChar(labels, data) {
       return {
         labels,
@@ -136,33 +224,41 @@ export default {
         ],
       };
     },
-    select(data) {
-      this.current_type = data.type;
+    select() {
+      this.table_loading = true
+      this.current_type = this.selector.type;
       this.$store
         .dispatch("inamhi/inamhi_page", {
-          id_esta: data.id_esta,
-          name: data.name,
-          type: data.type,
+          id_esta: this.selector.id_esta,
+          name: this.selector.name,
+          type: this.selector.type,
+          init_date: this.format_date_initial,
+          end_date: this.format_date_end
         })
         .then((data) => {
+          this.table_loading = false
           this.inamhi = data;
         })
         .catch((err) => {
+          this.table_loading = false
           console.error(err);
         });
     },
   },
   mounted() {
-    this.$store
-      .dispatch("inamhi/inamhi_page", {})
-      .then((data) => {
-        this.inamhi = data;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    this.select()
   },
   computed: {
+    format_date_initial () {
+      const m = moment();
+      const roundDown = m.startOf('hour');
+      return `${this.initial_date} ${roundDown.format('HH:mm:ss')}`
+    },
+    format_date_end () {
+      const m = moment();
+      const roundUp = m.minute() || m.second() || m.millisecond() ? m.add(1, 'hour').startOf('hour') : m.startOf('hour')
+      return `${this.end_date} ${roundUp.format('HH:mm:ss')}`
+    },
     presion_atmosferica_data() {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
       const labels = [];
@@ -305,6 +401,11 @@ export default {
   },
   data() {
     return {
+      table_loading: false,
+      menu_initial_date: false,
+      menu_end_date: false,
+      initial_date: moment().subtract(1, "d").format('YYYY-MM-DD'), 
+      end_date: moment().format('YYYY-MM-DD'),
       selector: {
         text: "GUAYAQUIL (FACULTAD CCNN) - METEOROLOGICA",
         value: {
@@ -312,6 +413,9 @@ export default {
           name: "GUAYAQUIL (FACULTAD CCNN)",
           type: "METEOROLOGICA",
         },
+        id_esta: 63813,
+        name: "GUAYAQUIL (FACULTAD CCNN)",
+        type: "METEOROLOGICA",
       },
       current_type: "METEOROLOGICA",
       items: [

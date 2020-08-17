@@ -20,6 +20,12 @@ app.use(
 
 const auth = require("./auth");
 const inamhi = require("./inamhi");
+app.all("/**", (req, res, next) => {
+  if (req.body) {
+    console.log(JSON.stringify(req.body, null, 2))
+  }
+  next()
+})
 app.use("/auth", auth);
 app.use("/inamhi", inamhi);
 

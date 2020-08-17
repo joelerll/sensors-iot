@@ -32,8 +32,13 @@ function onListening() {
 }
 
 const init = async () => {
-  await DB.Mysql.authenticate();
-  await DB.Mongo.connect();
+  try {
+    await DB.Mysql.authenticate();
+    await DB.Mongo.connect();
+    // await DB.Redis.connect();
+  } catch (error) {
+    console.error(error);
+  }
   cron.schedule(CRON_HOUR, () => {
     Jobs.Inamhi(DB);
   });

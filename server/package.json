@@ -8,6 +8,7 @@
     "prod": "export $(cat .env.production | xargs) && node src/server.js",
     "test:auth": "NODE_ENV=development env-cmd -f .env.development mocha src/api/auth/auth.test.js",
     "test:job": "NODE_ENV=development env-cmd -f .env.development mocha src/jobs/jobs.test.js",
+    "test:inamhi": "NODE_ENV=development env-cmd -f .env.development mocha src/api/inamhi/inamhi.test.js --timeout 10000",
     "seeders:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:seed:all",
     "migration:dev": "NODE_ENV=development env-cmd -f .env.development sequelize db:migrate"
   },
@@ -24,11 +25,14 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
+    "moment": "^2.27.0",
     "mongoose": "^5.9.25",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "node-cron": "^2.0.3",
-    "sequelize": "^6.3.3"
+    "redis": "^3.0.2",
+    "sequelize": "^6.3.3",
+    "tmp": "^0.2.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
