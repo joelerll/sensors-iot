@@ -38,6 +38,16 @@
 # .env.production VUE_APP_URL=http://ec2-18-218-68-190.us-east-2.compute.amazonaws.com
 
 
-
+CREATE USER 'root'@'%' IDENTIFIED BY '';
 
 # https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04
+
+
+nvm
+add env path
+source .procfile
+pm2
+
+g++ make python mysql-server mongo redis nginx redis-server
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
