@@ -22,7 +22,10 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="initial_date" @input="$refs.menu_initial_date.save(initial_date); menu_initial_date = false">
+            <v-date-picker
+              v-model="initial_date"
+              @input="$refs.menu_initial_date.save(initial_date); menu_initial_date = false"
+            >
               <v-spacer></v-spacer>
             </v-date-picker>
           </v-menu>
@@ -47,7 +50,10 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="end_date"  @input="$refs.menu_end_date.save(end_date); menu_end_date = false">
+            <v-date-picker
+              v-model="end_date"
+              @input="$refs.menu_end_date.save(end_date); menu_end_date = false"
+            >
               <v-spacer></v-spacer>
             </v-date-picker>
           </v-menu>
@@ -56,22 +62,23 @@
           <v-select :items="items" label="Seleccionar" v-model="selector"></v-select>
         </v-col>
       </v-row>
-      <v-row>
-      <v-col cols="8" sm="4" md="4">
-        <v-btn small color="primary" @click="select">Buscar</v-btn>
-      </v-col>
-      <v-col cols="8" sm="4" md="4">
-        <v-btn
-          color="blue"
-          class="ma-2 white--text"
-          fab
-          @click="download"
-        >
-          <v-icon dark>mdi-cloud-download</v-icon>
-        </v-btn>
-      </v-col>
+      <v-row justify="center">
+        <v-col cols="8" sm="4" md="4">
+          <v-btn small color="primary" @click="select">Buscar</v-btn>
+        </v-col>
+        <v-col cols="8" sm="4" md="4">
+          <v-btn color="blue" class="ma-2 white--text" fab @click="download">
+            <v-icon dark>mdi-cloud-download</v-icon>
+          </v-btn>
+        </v-col>
       </v-row>
-      <v-data-table :loading="table_loading" :headers="headers" :items="data" :items-per-page="8" class="elevation-1">
+      <v-data-table
+        :loading="table_loading"
+        :headers="headers"
+        :items="data"
+        :items-per-page="10"
+        class="elevation-1"
+      >
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
         </template>
@@ -127,10 +134,11 @@
 <script>
 import LineChart from "../../components/charts/LineChart";
 import BarChart from "../../components/charts/BarChart";
-import dayjs from "dayjs"
-import moment from "moment"
-import Papa from 'papaparse'
-dayjs.locale('es')
+import dayjs from "dayjs";
+import moment from "moment";
+import _ from "lodash";
+import Papa from "papaparse";
+dayjs.locale("es");
 
 export default {
   components: {
@@ -140,29 +148,40 @@ export default {
   name: "Inamhi",
   methods: {
     download() {
-      const csv = Papa.unparse({
-        fields: ["Nombre"],
-        data: [["Joel"]],
-      }, {});
-      const csvData = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+      const cleanData = [];
+      for (const data of this.data) {
+        let tmp = [];
+        for (const key in data) {
+          tmp.push(data[key]);
+        }
+        cleanData.push(tmp);
+      }
+      const csv = Papa.unparse(
+        {
+          fields: _.map(this.headers, "text"),
+          data: cleanData,
+        },
+        {}
+      );
+      const csvData = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = window.URL.createObjectURL(csvData);
       let anchor = document.createElement("a");
-      anchor.download = "file.csv";
+      anchor.download = `${this.selector.text}.csv`;
       anchor.href = url;
       anchor.click();
     },
-    getByRange (date) {
-      console.log(date)
+    getByRange(date) {
+      console.log(date);
     },
     presionAtmosfericaChar(labels, data) {
       return {
-        labels,
+        labels: _.reverse(labels),
         datasets: [
           {
             label: "Presión Atmosférica",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
-            data,
+            data: _.reverse(data),
             fill: false,
           },
         ],
@@ -170,13 +189,13 @@ export default {
     },
     precipitacionChar(labels, data) {
       return {
-        labels,
+        labels: _.reverse(labels),
         datasets: [
           {
             label: "Precipitación (mm)",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
-            data,
+            data: _.reverse(data),
             fill: false,
           },
         ],
@@ -184,13 +203,13 @@ export default {
     },
     nivelAguaChar(labels, data) {
       return {
-        labels,
+        labels: _.reverse(labels),
         datasets: [
           {
             label: "Nivel agua(INST)",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
-            data,
+            data: _.reverse(data),
             fill: false,
           },
         ],
@@ -198,34 +217,34 @@ export default {
     },
     humedadRelativaAireChar(labels, datacharinst, datacharmax, datacharmin) {
       return {
-        labels,
+        labels: _.reverse(labels),
         datasets: [
           {
             label: "HUMEDAD RELATIVA DEL AIRE (%) INST",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
-            data: datacharinst,
+            data: _.reverse(datacharinst),
             fill: false,
           },
           {
             label: "HUMEDAD RELATIVA DEL AIRE (%) MAX",
             backgroundColor: "#ff6384",
             borderColor: "#ff6384",
-            data: datacharmax,
+            data: _.reverse(datacharmax),
             fill: false,
           },
           {
             label: "HUMEDAD RELATIVA DEL AIRE (%) MIN",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
-            data: datacharmin,
+            data: _.reverse(datacharmin),
             fill: false,
           },
         ],
       };
     },
     select() {
-      this.table_loading = true
+      this.table_loading = true;
       this.current_type = this.selector.type;
       this.$store
         .dispatch("inamhi/inamhi_page", {
@@ -233,31 +252,34 @@ export default {
           name: this.selector.name,
           type: this.selector.type,
           init_date: this.format_date_initial,
-          end_date: this.format_date_end
+          end_date: this.format_date_end,
         })
         .then((data) => {
-          this.table_loading = false
+          this.table_loading = false;
           this.inamhi = data;
         })
         .catch((err) => {
-          this.table_loading = false
+          this.table_loading = false;
           console.error(err);
         });
     },
   },
   mounted() {
-    this.select()
+    this.select();
   },
   computed: {
-    format_date_initial () {
+    format_date_initial() {
       const m = moment();
-      const roundDown = m.startOf('hour');
-      return `${this.initial_date} ${roundDown.format('HH:mm:ss')}`
+      const roundDown = m.startOf("hour");
+      return `${this.initial_date} ${roundDown.format("HH:mm:ss")}`;
     },
-    format_date_end () {
+    format_date_end() {
       const m = moment();
-      const roundUp = m.minute() || m.second() || m.millisecond() ? m.add(1, 'hour').startOf('hour') : m.startOf('hour')
-      return `${this.end_date} ${roundUp.format('HH:mm:ss')}`
+      const roundUp =
+        m.minute() || m.second() || m.millisecond()
+          ? m.add(1, "hour").startOf("hour")
+          : m.startOf("hour");
+      return `${this.end_date} ${roundUp.format("HH:mm:ss")}`;
     },
     presion_atmosferica_data() {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
@@ -404,8 +426,8 @@ export default {
       table_loading: false,
       menu_initial_date: false,
       menu_end_date: false,
-      initial_date: moment().subtract(1, "d").format('YYYY-MM-DD'), 
-      end_date: moment().format('YYYY-MM-DD'),
+      initial_date: moment().subtract(1, "d").format("YYYY-MM-DD"),
+      end_date: moment().format("YYYY-MM-DD"),
       selector: {
         text: "GUAYAQUIL (FACULTAD CCNN) - METEOROLOGICA",
         value: {

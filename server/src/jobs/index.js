@@ -4,8 +4,86 @@ const path = require('path');
 const _ = require("lodash")
 const config = require("./config")
 const axios = require("axios");
+const moment = require("moment-timezone")
+moment.tz("America/Guayaquil")
+
+function hasNumber(myString) {
+    return /\d/.test(myString);
+}
 
 module.exports = {
+    AgenciaEspacial: async (DB) => {
+        try {
+            // const data = fs.readFileSync(path.join(__dirname, 'agencia.espacial.html'), 'utf8');
+            const url = `${config.agencia.url}/${config.agencia.path}`
+            const { data } = await axios.get(url)
+            const $ = cheerio.load(data, { decodeEntities: false });
+            const trs = $("table > tbody");
+            let values = []
+            let values_extra = []
+            for (let tr of trs[0].children) {
+                let $tr = $(tr)
+                if (!$tr || !$tr.html()) {
+                    continue;
+                }
+                let value = ""
+                if ($tr.find('small')[1]) {
+                    value = _.head($tr.find('small')[1].children).data
+                    if (value && hasNumber(value)) {
+                        values.push(value.replace(/[^\d.-]/g, ''))
+                        continue;
+                    }
+                }
+                
+                if ($tr.find('font')[1] && $tr.find('font')[3]) {
+                    value = _.head($tr.find('font')[3].children).data
+                    if (value && hasNumber(value)) {
+                        values.push(value.replace(/[^\d.-]/g, ''))
+                    }
+                }
+                
+                if ($tr.find('font[color="#ff4500"] > small > p')[0]) {
+                    value = _.head($tr.find('font[color="#ff4500"] > small > p')[0].children)
+                    if (value.data && hasNumber(value.data)) {
+                        values_extra.push(value.data.replace(/[^\d.-]/g, ''))
+                    }
+                }
+
+                if ($tr.find('font[color="#ff4500"] > small > p')[1]) {
+                    value = _.head($tr.find('font[color="#ff4500"] > small > p')[1].children)
+                    if (value.data && hasNumber(value.data)) {
+                        values_extra.push(value.data.replace(/[^\d.-]/g, ''))
+                    }
+                }
+
+                if ($tr.find('font[color="#ff4500"] > strong > small > p')[0]) {
+                    value = _.head($tr.find('font[color="#ff4500"] > strong > small > p')[0].children)
+                    if (value.data && hasNumber(value.data)) {
+                        values_extra.push(value.data.replace(/[^\d.-]/g, ''))
+                    }
+                }
+
+                if ($tr.find('font[color="#ff4500"] > strong > small > p')[1]) {
+                    value = _.head($tr.find('font[color="#ff4500"] > strong > small > p')[1].children)
+                    if (value.data && hasNumber(value.data)) {
+                        values_extra.push(value.data.replace(/[^\d.-]/g, ''))
+                    }
+                }
+            }
+            const fecha = moment().format('YYYY-MM-DD hh:mm:ss')
+            values = [fecha, ...values]
+            values_extra = [fecha, ...values_extra]
+            const new_cell = {
+                data: values,
+                data_extra: values_extra,
+                fecha
+            }
+            await DB.Mongo.AgenciaEspacial.create(new_cell);
+            console.log("saving table : ", new_cell)
+        } catch (error) {
+            console.error(error)
+        }
+    },
     Inamhi: async (DB) => {
         try {
             for (const city of config.cities) {
@@ -20,7 +98,7 @@ module.exports = {
                         table_headers.push(_.trim(cell_html.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g,' ')))
                     }
                 }
-                const tbody = $("#miyazaki > tbody")
+                const [tbody] = $("#miyazaki > tbody")
                 for (const row of tbody[0].childNodes) {
                     let cont = 0
                     const new_cell = {}

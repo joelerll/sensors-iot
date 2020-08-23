@@ -41,6 +41,7 @@ const init = async () => {
   }
   cron.schedule(CRON_HOUR, () => {
     Jobs.Inamhi(DB);
+    Jobs.AgenciaEspacial(DB);
   });
   server.on("error", onError);
   server.on("listening", onListening);

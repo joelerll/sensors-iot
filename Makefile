@@ -1,11 +1,12 @@
-all: deploy-server-dev deploy-client-dev
+# all: deploy-server-dev deploy-client-dev
 
-deploy-server-dev:
-	cd server && yarn install && yarn migration:dev && yarn seeders:dev
+# deploy-server-dev:
+# 	cd server && yarn install && yarn migration:dev && yarn seeders:dev
 
-deploy-client-dev:
-	cd client && yarn install && yarn build
+# deploy-client-dev:
+# 	cd client && yarn install && yarn build
 
+# redis, nodejs, mysql-server, make, g++, python
 
 
 # apt-get install nginx

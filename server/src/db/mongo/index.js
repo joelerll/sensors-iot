@@ -3,6 +3,7 @@ const _ = require("lodash");
 const { DATABASE, ENV } = require("../../constants");
 
 const Inamhi = require("./models/inamhi");
+const Agencia = require("./models/agenciaEspacial");
 
 const build = (config) => {
   if (config.url) {
@@ -23,6 +24,7 @@ class Mongo {
       config
     );
     this.Inamhi = Inamhi;
+    this.AgenciaEspacial = Agencia
   }
 
   connect() {

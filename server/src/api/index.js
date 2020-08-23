@@ -20,6 +20,7 @@ app.use(
 
 const auth = require("./auth");
 const inamhi = require("./inamhi");
+const agencia = require("./agencia-espacial");
 app.all("/**", (req, res, next) => {
   if (req.body) {
     console.log(JSON.stringify(req.body, null, 2))
@@ -28,5 +29,6 @@ app.all("/**", (req, res, next) => {
 })
 app.use("/auth", auth);
 app.use("/inamhi", inamhi);
+app.use("/agencia", agencia);
 
 module.exports = app;

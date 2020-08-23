@@ -18,4 +18,8 @@ module.exports = {
             type: "METEOROLOGICA"
         }
     ],
+    agencia: {
+        url: "http://gye.exa.ec/",
+        path: "Current.htm"
+    }
 }

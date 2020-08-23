@@ -6,5 +6,8 @@ export default {
   INNAHI: {
     PAGE: "/api/inamhi/page"
   },
+  AGENCIA_ESPACIAL: {
+    PAGE: "/api/agencia/page"
+  },
   BASE_PATH: process.env.VUE_APP_URL,
 };

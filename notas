@@ -1,5 +1,11 @@
 EC2
 
+- [ ] Las fechas de las graficas estan al revez
+- [ ] Descargar archivo csv de la tablas
+- [ ] Arreglar css del boton de buscar y del de Descargar
+- [ ] Script de recogier datos de http://gye.exa.ec/
+- [ ] Refactorizar graficas y cosas del Inamhi
+
 ssh -i server.pem ubuntu@ec2-18-218-68-190.us-east-2.compute.amazonaws.com
 export $(cat .env.development | xargs) && pm2 start src/server.js
 
