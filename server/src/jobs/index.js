@@ -98,8 +98,9 @@ module.exports = {
                         table_headers.push(_.trim(cell_html.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g,' ')))
                     }
                 }
-                const [tbody] = $("#miyazaki > tbody")
-                for (const row of tbody[0].childNodes) {
+                // console.log()
+                const tbody =$("#miyazaki > tbody")[0]
+                for (const row of tbody.childNodes) {
                     let cont = 0
                     const new_cell = {}
                     new_cell.data = []
