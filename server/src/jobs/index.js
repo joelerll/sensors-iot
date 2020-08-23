@@ -5,7 +5,7 @@ const _ = require("lodash")
 const config = require("./config")
 const axios = require("axios");
 const moment = require("moment-timezone")
-moment.tz("America/Guayaquil")
+// moment.tz("America/Guayaquil")
 
 function hasNumber(myString) {
     return /\d/.test(myString);
@@ -98,7 +98,6 @@ module.exports = {
                         table_headers.push(_.trim(cell_html.replace(/(<|&lt;)br\s*\/*(>|&gt;)/g,' ')))
                     }
                 }
-                // console.log()
                 const tbody =$("#miyazaki > tbody")[0]
                 for (const row of tbody.childNodes) {
                     let cont = 0
