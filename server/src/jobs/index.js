@@ -70,7 +70,7 @@ module.exports = {
                     }
                 }
             }
-            const fecha = moment().format('YYYY-MM-DD hh:mm:ss')
+            const fecha = moment().tz("America/Guayaquil").format('YYYY-MM-DD HH:mm:ss')
             values = [fecha, ...values]
             values_extra = [fecha, ...values_extra]
             const new_cell = {

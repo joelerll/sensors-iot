@@ -106,17 +106,17 @@ module.exports = (api) => {
         //     return res.json({ status: 'OK', data: JSON.parse(isCached) })
         // }
         // // await sleep();
-        const data = await req.DB.Mongo.AgenciaEspacial.find({}).sort( { fecha: -1 } );
+        const data = await req.DB.Mongo.AgenciaEspacial.find({}).sort( { createdAt: -1 } );
         const dataClean = []
         for (const iterator of data) {
             let dataclean = {
-                fecha: iterator.fecha,
+                fecha: iterator.createdAt,
                 headers: [],
                 data: [],
                 _id: iterator._id
             }
             dataclean.headers.push('FECHA')
-            dataclean.data.push(iterator.fecha)
+            dataclean.data.push(iterator.createdAt)
             for (const list of order) {
                 dataclean.headers.push(list.value)
                 if (list.type === 'AgenciaEspecialHeaders') {
