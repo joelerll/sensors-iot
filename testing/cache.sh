@@ -15,3 +15,6 @@ do
    echo "$format$inicio,$fin" >> cache.csv
    sleep 5
 done
+
+# Median :52.37
+# Median :51.27
