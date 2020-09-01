@@ -3098,6 +3098,11 @@ dotenv@^8.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
+dummyjs@^1.1.6:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/dummyjs/-/dummyjs-1.1.7.tgz#b6bd325847b4e04390c4e25a8516dd642760c9a4"
+  integrity sha512-LLbsaDZN7biLCmBf4rtMKkjQU9poMzkm01UQYoDxosFohtco9tT/bvhU4Juq+gODd7gpXsTDq1DdXW4g2q1zQw==
+
 duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
@@ -8041,6 +8046,13 @@ vue-crud@^2.1.12:
     tinymce "4.x"
     vue "2.x"
     vuejs-datepicker "^0.9.4"
+
+vue-dummy@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/vue-dummy/-/vue-dummy-1.1.3.tgz#0744491c4ad84a9544c20e1040575312b3aeb3d0"
+  integrity sha512-ugFEh5Ihlch9XPQA84Ggvbnndza4hawQnIFaI3ZWfJmhoLcw1cOsZu5cFG/+o1UIiljwzL3DvAV8zmtTHKXOJA==
+  dependencies:
+    dummyjs "^1.1.6"
 
 vue-eslint-parser@^7.0.0:
   version "7.1.0"

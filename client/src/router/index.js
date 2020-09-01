@@ -16,13 +16,30 @@ import Inamhi from "../views/Inamhi/Inamhi.vue";
 // Agencia Espacial
 import AgenciaEspacial from "../views/AgenciaEspacial/AgenciaEspacial.vue";
 
+// Landing
+import Landing from "../views/Landing/Landing.vue"
+
+// Wifi
+import Wifi from "../views/Wifi/Wifi.vue"
+
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
+    name: "Landing",
+    component: Landing,
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/wifi",
+    name: "Wifi",
+    component: Wifi,
   },
   {
     path: "/home",

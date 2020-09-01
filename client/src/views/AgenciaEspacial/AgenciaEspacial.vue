@@ -1,5 +1,5 @@
 <template>
-  <div name="AgenciaEspacial">
+  <div name="AgenciaEspacial"  style="margin: 15px;">
     <v-container fluid>
       <v-data-table :headers="headers" :items="data" :items-per-page="10" class="elevation-1">
         <template v-slot:item.fecha="{ item }">
