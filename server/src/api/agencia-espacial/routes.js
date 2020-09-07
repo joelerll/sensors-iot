@@ -93,6 +93,86 @@ const order = [
         name: "Mínimo PDC",
         value: "PUNTO DE CONDENSASIÓN (C) MIN"
     },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Presión Atmosférica",
+        value: "PRESIÓN ATMOSFÉRICA"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Lluvia",
+        value: "LLUVIA HOY"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Tasa de lluvia",
+        value: "TASA DE LLUVIA"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Total Tormenta",
+        value: "TOTAL TORMENTA"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Lluvia Mensual",
+        value: "LLUVIA MENSUAL"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Lluvia Anual",
+        value: "LLUVIA ANUAL"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Sensación térmica del viento",
+        value: "SENSACIÓN TÉRMICA DEL VIENTO"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Índice Temperatura-Humedad-Viento",
+        value: "ÍNDICE TEMPERATURA-HUMEDAD-VIENTO"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Índice de Calor",
+        value: "ÍNDICE DE CALOR"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Índice de radiación UV",
+        value: "ÍNDICE DE RADIACIÓN UV"
+    },
+    {
+        type: "AgenciaEspecialHeaders",
+        name: "Radiación Solar",
+        value: "RADIACIÓN SOLAR"
+    },
+    {
+        type: "AgenciaEspecialHeadersExtra",
+        name: "Máxima tasa de lluvia",
+        value: "MÁXIMA TASA DE LLUVIA"
+    },
+    {
+        type: "AgenciaEspecialHeadersExtra",
+        name: "Minima STV",
+        value: "MÍNIMA STV"
+    },
+    {
+        type: "AgenciaEspecialHeadersExtra",
+        name: "Máximo índice de calor",
+        value: "MÁXIMA ÍNDICE DE CALOR"
+    },
+    {
+        type: "AgenciaEspecialHeadersExtra",
+        name: "Máxima UV",
+        value: "Máximo UV"
+    },
+    {
+        type: "AgenciaEspecialHeadersExtra",
+        name: "Máxima radiación solar",
+        value: "MÁXIMA RADIACIÓN SOLAR"
+    },
 ]
 
 module.exports = (api) => {
@@ -106,7 +186,10 @@ module.exports = (api) => {
         //     return res.json({ status: 'OK', data: JSON.parse(isCached) })
         // }
         // // await sleep();
-        const data = await req.DB.Mongo.AgenciaEspacial.find({}).sort( { createdAt: -1 } );
+        const data = await req.DB.Mongo.AgenciaEspacial.find({ fecha: {
+            $gte: init_date,
+            $lt: end_date
+        } }).sort( { createdAt: -1 } );
         const dataClean = []
         for (const iterator of data) {
             let dataclean = {
