@@ -128,6 +128,7 @@ export default {
   name: "Landing",
   computed: {
     drawer: function () {
+      console.log(this.$store.getters.drawer);
       return this.$store.getters.drawer;
     },
   },

@@ -19,7 +19,7 @@ export default new Vuex.Store({
   },
   state: {
     [types.current_path]: "/",
-    drawer: false,
+    drawer: true,
     titulo: "Iniciativa de datos abiertos de Guayaquil",
     titulo_tab: "Destacados",
     titulo_tab_1: "Medicion",
@@ -86,7 +86,8 @@ export default new Vuex.Store({
       return state[types.current_path];
     },
     drawer: (state) => {
-      return state.drawer;
+      console.log(state.drawer)
+      return !state.drawer;
     },
     landing: (state) => {
       return {
