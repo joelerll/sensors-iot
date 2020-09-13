@@ -3,7 +3,14 @@
     <v-card class="mx-auto">
       <v-toolbar class="white">
         <!-- <v-toolbar-side-icon> -->
-        <img   link @click="goToLanding" src="@/assets/guayaquil.png" alt="Vuetify.js" height="50px" width="60px" />
+        <img
+          link
+          @click="goToLanding"
+          src="@/assets/guayaquil.png"
+          alt="Vuetify.js"
+          height="50px"
+          width="60px"
+        />
         <!-- </v-toolbar-side-icon> -->
         <v-spacer></v-spacer>
         <v-toolbar-title class="mx-0">
@@ -16,38 +23,38 @@
               <v-btn color="primary" dark v-bind="attrs" v-on="on">Datos Disponibles</v-btn>
             </template>
             <v-list>
-              <v-list-item  link @click="goToInamhi">
+              <v-list-item link @click="goToInamhi">
                 <v-list-item-icon>
-                    <img src="@/assets/logo_inamhi_2.png" width="40" height="30" />
+                  <img src="@/assets/logo_inamhi_2.png" width="40" height="30" />
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                    <v-list-item-title>Inamhi</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              
-              <v-list-item  link @click="goToAgenciaEspacial">
-                <v-list-item-icon>
-                    <img src="@/assets/agencia_espacial.png" width="40" height="30" />
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                    <v-list-item-title>Agencia Espacial</v-list-item-title>
+                  <v-list-item-title>Inamhi</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
-              <v-list-item  link @click="goToWifi">
-                  <v-list-item-icon>
-                    <img src="@/assets/wifi.png" width="40" height="30" />
+              <v-list-item link @click="goToAgenciaEspacial">
+                <v-list-item-icon>
+                  <img src="@/assets/agencia_espacial.png" width="40" height="30" />
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Agencia Espacial</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item link @click="goToWifi">
+                <v-list-item-icon>
+                  <img src="@/assets/wifi.png" width="40" height="30" />
                 </v-list-item-icon>
                 <v-list-item-content>
-                    <v-list-item-title>Puntos internet gratuito</v-list-item-title>
+                  <v-list-item-title>Puntos internet gratuito</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
           </v-menu>
           <!--<v-btn flat>Blog</v-btn>-->
-          <v-btn class="pink lighten-3">Login</v-btn>
+          <v-btn class="pink lighten-3">Ingresar</v-btn>
         </v-toolbar-items>
       </v-toolbar>
     </v-card>

@@ -226,6 +226,7 @@
           <v-col cols="18" sm="6"></v-col>
         </v-row>
       </v-container>
+
       <v-data-table
         :loading="table_loading"
         :headers="headers"
@@ -234,6 +235,9 @@
         class="elevation-1"
         style="margin-top: 40px;"
       >
+        <template v-slot:top>
+          <h3>Datos Perdidos: {{datos_perdidos}}</h3>
+        </template>
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
         </template>
@@ -455,18 +459,45 @@ export default {
     },
     resume() {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
-      return {
-        temperatura_max: _.last(data).data[7],
-        temperatura_min: _.last(data).data[8],
-        temperatura_inst: _.last(data).data[6],
-        humedad_inst: _.last(data).data[1],
-        humedad_max: _.last(data).data[2],
-        humedad_min: _.last(data).data[3],
-        precipitacion: _.last(data).data[4],
-        presion_atm: _.last(data).data[5],
-        velocidad_viento: _.last(data).data[9],
-        direccion_viento: _.last(data).data[10],
-      };
+      try {
+        return {
+          temperatura_max: _.last(data).data[7],
+          temperatura_min: _.last(data).data[8],
+          temperatura_inst: _.last(data).data[6],
+          humedad_inst: _.last(data).data[1],
+          humedad_max: _.last(data).data[2],
+          humedad_min: _.last(data).data[3],
+          precipitacion: _.last(data).data[4],
+          presion_atm: _.last(data).data[5],
+          velocidad_viento: _.last(data).data[9],
+          direccion_viento: _.last(data).data[10],
+        };
+      } catch (error) {
+        return {
+          temperatura_max: 0,
+          temperatura_min: 0,
+          temperatura_inst: 0,
+          humedad_inst: 0,
+          humedad_max: 0,
+          humedad_min: 0,
+          precipitacion: 0,
+          presion_atm: 0,
+          velocidad_viento: 0,
+          direccion_viento: 0,
+        };
+      }
+    },
+    datos_perdidos() {
+      const data = this.$store.getters["inamhi/inamhi_page_get"];
+      let cont = 0;
+      for (let row of data) {
+        for (let actualdata of row.data) {
+          if (_.isEmpty(actualdata)) {
+            cont++;
+          }
+        }
+      }
+      return cont;
     },
     temperatura_aire_data() {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
