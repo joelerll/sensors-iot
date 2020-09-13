@@ -9,5 +9,9 @@ export default {
   AGENCIA_ESPACIAL: {
     PAGE: "/api/agencia/page"
   },
+  LANDING: {
+    GET: "/api/landing",
+    POST: "/api/landing"
+  },
   BASE_PATH: process.env.VUE_APP_URL,
 };

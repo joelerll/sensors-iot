@@ -2,7 +2,7 @@
   <div id="Navbar-landing">
     <v-card class="mx-auto">
       <v-toolbar class="white">
-        <!-- <v-toolbar-side-icon> -->
+        <v-app-bar-nav-icon @click.stop="drawer"></v-app-bar-nav-icon>
         <img
           link
           @click="goToLanding"
@@ -54,7 +54,7 @@
             </v-list>
           </v-menu>
           <!--<v-btn flat>Blog</v-btn>-->
-          <v-btn class="pink lighten-3">Ingresar</v-btn>
+          <!-- <v-btn class="pink lighten-3">Ingresar</v-btn> -->
         </v-toolbar-items>
       </v-toolbar>
     </v-card>
@@ -79,6 +79,12 @@ export default {
     },
     goToLanding: function () {
       this.$router.push("/");
+    },
+    is_logged: function () {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
+    drawer: function () {
+      return this.$store.dispatch("drawer");
     },
   },
   data() {

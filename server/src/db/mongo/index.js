@@ -4,6 +4,7 @@ const { DATABASE, ENV } = require("../../constants");
 
 const Inamhi = require("./models/inamhi");
 const Agencia = require("./models/agenciaEspacial");
+const Landing = require("./models/landing");
 
 const build = (config) => {
   if (config.url) {
@@ -25,6 +26,7 @@ class Mongo {
     );
     this.Inamhi = Inamhi;
     this.AgenciaEspacial = Agencia
+    this.Landing = Landing
   }
 
   connect() {
