@@ -86,7 +86,6 @@ export default new Vuex.Store({
       return state[types.current_path];
     },
     drawer: (state) => {
-      console.log(state.drawer)
       return !state.drawer;
     },
     landing: (state) => {

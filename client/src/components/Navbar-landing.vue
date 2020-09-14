@@ -20,7 +20,12 @@
         <v-toolbar-items>
           <v-menu open-on-hover bottom offset-y>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on">Datos Disponibles</v-btn>
+              <v-btn
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >Tecnologías para Guayaquil Inteligente</v-btn>
             </template>
             <v-list>
               <v-list-item link @click="goToInamhi">
@@ -39,20 +44,149 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>Agencia Espacial</v-list-item-title>
+                  <v-list-item-title>Exa</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-menu open-on-hover bottom offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="second" dark v-bind="attrs" v-on="on">Smart City</v-btn>
+            </template>
+            <v-list no-action>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Transformación digital</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Ciudad digital</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Ciudadano digital</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Ciudadano inteligente</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-group value="true" open-on-hover>
+                <template v-slot:activator>
+                  <v-list-item-title>Ciudades inteligentes de</v-list-item-title>
+                </template>
+                <v-list-item link>
+                  <v-list-item-title>Singapur</v-list-item-title>
+                </v-list-item>
+                <v-list-item link>
+                  <v-list-item-content>
+                    <v-list-item-title>Londres</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                  <v-list-item-content>
+                    <v-list-item-title>Seoul</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                  <v-list-item-content>
+                    <v-list-item-title>Coneparativa</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-group>
+              <!-- <v-list-item link> -->
+              <!-- <v-menu offset-y right open-on-hover>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-list-tile-title v-bind="attrs" v-on="on">Ciudades inteligentes de</v-list-tile-title>
+                  </template>
+                  <v-list dense>
+                    <v-list-item link>
+                      <v-list-item-content>
+                        <v-list-item-title>Singapur</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link>
+                      <v-list-item-content>
+                        <v-list-item-title>Londres</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link>
+                      <v-list-item-content>
+                        <v-list-item-title>Seoul</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item link>
+                      <v-list-item-content>
+                        <v-list-item-title>Coneparativa</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+              </v-menu>-->
+              <!-- <v-list-group open-on-hover>
+                  <template v-slot:activator>
+                    <v-list-item-content>
+                      <v-list-item-title>Ciudades inteligentes del</v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+                  <v-list-item link>
+                    <v-list-item-content>
+                      <v-list-item-title>Singapur</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+              </v-list-group>-->
+              <!-- </v-list-item> -->
+            </v-list>
+          </v-menu>
+          <v-menu open-on-hover bottom offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" dark v-bind="attrs" v-on="on">Iniciativas promovidas</v-btn>
+            </template>
+            <v-list>
               <v-list-item link @click="goToWifi">
                 <v-list-item-icon>
                   <img src="@/assets/wifi.png" width="40" height="30" />
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title>Puntos internet gratuito</v-list-item-title>
+                  <v-list-item-title>Puntos Wifi</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Bachilleres digital</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Seguridad ciudadana</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Telemedicina</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Infocentros</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Metrovía</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>Guayaquil trabajamos juntos</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
           </v-menu>
+
           <!--<v-btn flat>Blog</v-btn>-->
           <!-- <v-btn class="pink lighten-3">Ingresar</v-btn> -->
         </v-toolbar-items>
