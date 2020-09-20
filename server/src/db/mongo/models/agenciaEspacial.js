@@ -44,6 +44,7 @@ const AgenciaEspacialSchema = Schema(
         headers_extra: {  type: Array, default: AgenciaEspecialHeadersExtra },
         data: { type: Array, },
         data_extra: { type: Array },
+        fecha_captura: { type: String },
         fecha: { type: Date },
     },
     { timestamps: true, versionKey: false, collection: "agencia-espacial" }

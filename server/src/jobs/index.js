@@ -19,12 +19,20 @@ module.exports = {
             const { data } = await axios.get(url)
             const $ = cheerio.load(data, { decodeEntities: false });
             const trs = $("table > tbody");
+            let last_date = ""
             let values = []
             let values_extra = []
             for (let tr of trs[0].children) {
                 let $tr = $(tr)
                 if (!$tr || !$tr.html()) {
                     continue;
+                }
+
+                if ($tr.find('font[color="#ff4500"]') && $tr.find('font[color="#ff4500"]')[0] && $tr.find('font[color="#ff4500"]')[0].children[0]) {
+                    let date = $tr.find('font[color="#ff4500"]')[0].children[0].data
+                    if (date) {
+                        last_date = date 
+                    }
                 }
                 let value = ""
                 if ($tr.find('small')[1]) {
@@ -76,7 +84,16 @@ module.exports = {
             const new_cell = {
                 data: values,
                 data_extra: values_extra,
-                fecha
+                fecha,
+                fecha_captura: last_date
+            }
+            const last = await DB.Mongo.AgenciaEspacial.findOne().sort({_id: -1})
+            if (last.fecha_captura == new_cell.fecha_captura) {
+                console.log("==== same date")
+                console.log(new_cell)
+                console.log(last)
+                console.log("==== same date")
+                return;
             }
             await DB.Mongo.AgenciaEspacial.create(new_cell);
             console.log("saving table : ", new_cell)

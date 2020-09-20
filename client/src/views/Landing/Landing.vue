@@ -127,9 +127,14 @@
 export default {
   name: "Landing",
   computed: {
-    drawer: function () {
-      console.log(this.$store.getters.drawer);
-      return this.$store.getters.drawer;
+    drawer: {
+      get: function () {
+        return this.$store.getters["drawer"];
+        // return false;
+      },
+      set: function () {
+        return false;
+      },
     },
   },
   methods: {
@@ -170,6 +175,7 @@ export default {
   },
   data() {
     return {
+      hola: false,
       tab: null,
       titulo: "",
       titulo_tab: "",

@@ -13,7 +13,7 @@ const Jobs = require("./index")
 const init = async () => {
   await DB.Mongo.connect()
   // await Jobs.Inamhi(DB)
-  await Jobs.Inamhi(DB)
+  await Jobs.AgenciaEspacial(DB)
 }
 
 init()
