@@ -20,9 +20,6 @@ class Redis {
 
     Set(key, value, time = 24*60*60) {
         return new Promise((resolve, reject) => {
-            console.log(time)
-            console.log(key)
-            console.log(value)
             this.client.setex(key, time, value, (err, result) => {
                 if (err) {
                     return reject(err);

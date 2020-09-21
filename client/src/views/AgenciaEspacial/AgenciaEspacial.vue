@@ -71,6 +71,7 @@
         </v-row>
       </v-col>
     </v-row>
+    <h1 v-show="same_date" style="color: red;">Exa no esta actualizada</h1>
     <v-card class="rounded-lg" tile>
       <v-list-item two-line>
         <v-list-item-content>
@@ -360,6 +361,12 @@ export default {
     },
   },
   computed: {
+    same_date() {
+      const data = this.$store.getters["agencia/same_data"];
+      // console.log(data);
+      return data == "true" || data == true ? true : false;
+      // return
+    },
     temperatura_instantanea_data() {
       const data = this.$store.getters["agencia/agencia_page_get"];
       const labels = [];
@@ -369,7 +376,7 @@ export default {
         for (let y = 0; y < data[index].headers.length; y++) {
           if (y === 0) {
             head.fecha = data[index].data[y];
-            labels.push(head.fecha);
+            labels.push(moment(head.fecha).format("YYYY-MM-DD HH:mm"));
             continue;
           }
           if (data[index].headers[y] === "TEMPERATURA (C) INST") {
@@ -389,7 +396,7 @@ export default {
         for (let y = 0; y < data[index].headers.length; y++) {
           if (y === 0) {
             head.fecha = data[index].data[y];
-            labels.push(head.fecha);
+            labels.push(moment(head.fecha).format("YYYY-MM-DD HH:mm"));
             continue;
           }
           if (data[index].headers[y] === "HUMEDAD (%) INST") {
@@ -409,7 +416,7 @@ export default {
         for (let y = 0; y < data[index].headers.length; y++) {
           if (y === 0) {
             head.fecha = data[index].data[y];
-            labels.push(head.fecha);
+            labels.push(moment(head.fecha).format("YYYY-MM-DD HH:mm"));
             continue;
           }
           if (data[index].headers[y] === "PUNTO DE CONDENSASIÓN (C) INST") {
@@ -429,7 +436,7 @@ export default {
         for (let y = 0; y < data[index].headers.length; y++) {
           if (y === 0) {
             head.fecha = data[index].data[y];
-            labels.push(head.fecha);
+            labels.push(moment(head.fecha).format("YYYY-MM-DD HH:mm"));
             continue;
           }
           if (data[index].headers[y] === "ÍNDICE DE RADIACIÓN UV") {
@@ -442,20 +449,35 @@ export default {
     },
     resume() {
       const data = this.$store.getters["agencia/agencia_page_get"];
-      return {
-        temperatura_inst: _.head(data).data[1],
-        temperatura_max: _.last(data).data[2],
-        temperatura_min: _.last(data).data[3],
-        humedad_inst: _.last(data).data[4],
-        humedad_max: _.last(data).data[5],
-        humedad_min: _.last(data).data[6],
-        indice_radiacion_uv: _.last(data).data[19],
-        presion_atm: _.last(data).data[10],
-        minimo_pdc: _.last(data).data[9],
-        maximo_pdc: _.last(data).data[8],
-        // velocidad_viento: _.last(data).data[9],
-        // direccion_viento: _.last(data).data[10],
-      };
+      try {
+        return {
+          temperatura_inst: _.head(data).data[1],
+          temperatura_max: _.last(data).data[2],
+          temperatura_min: _.last(data).data[3],
+          humedad_inst: _.last(data).data[4],
+          humedad_max: _.last(data).data[5],
+          humedad_min: _.last(data).data[6],
+          indice_radiacion_uv: _.last(data).data[19],
+          presion_atm: _.last(data).data[10],
+          minimo_pdc: _.last(data).data[9],
+          maximo_pdc: _.last(data).data[8],
+          // velocidad_viento: _.last(data).data[9],
+          // direccion_viento: _.last(data).data[10],
+        };
+      } catch (error) {
+        return {
+          temperatura_inst: "",
+          temperatura_max: "",
+          temperatura_min: "",
+          humedad_inst: "",
+          humedad_max: "",
+          humedad_min: "",
+          indice_radiacion_uv: "",
+          presion_atm: "",
+          minimo_pdc: "",
+          maximo_pdc: "",
+        };
+      }
     },
     data() {
       const data = this.$store.getters["agencia/agencia_page_get"];
@@ -511,7 +533,7 @@ export default {
         for (let y = 0; y < data[index].headers.length; y++) {
           if (y === 0) {
             head.fecha = data[index].data[y];
-            labels.push(head.fecha);
+            labels.push(moment(head.fecha).format("YYYY-DD-MM HH:mm"));
             continue;
           }
           if (data[index].headers[y] === "HUMEDAD (%) INST") {

@@ -93,8 +93,10 @@ module.exports = {
                 console.log(new_cell)
                 console.log(last)
                 console.log("==== same date")
+                await DB.Redis.Set("same_date", true, null)
                 return;
             }
+            await DB.Redis.Set("same_date", false, null)
             await DB.Mongo.AgenciaEspacial.create(new_cell);
             console.log("saving table : ", new_cell)
         } catch (error) {

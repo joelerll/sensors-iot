@@ -190,6 +190,7 @@ module.exports = (api) => {
             $gte: init_date,
             $lt: end_date
         } }).sort( { createdAt: -1 } );
+        console.log(data)
         const dataClean = []
         for (const iterator of data) {
             let dataclean = {
@@ -223,7 +224,8 @@ module.exports = (api) => {
         //     const options = {};
         //     await workbook.csv.writeFile(fileTmp.name, options);
         // }
-        return res.json({ status: 'OK', data: dataClean })
+        const same_date = await req.DB.Redis.Get("same_date")
+        return res.json({ status: 'OK', data: dataClean, same_date })
     })
     return api;
 };
