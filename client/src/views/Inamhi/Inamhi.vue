@@ -236,7 +236,7 @@
         style="margin-top: 40px;"
       >
         <template v-slot:top>
-          <h3>Datos Perdidos: {{datos_perdidos}}</h3>
+          <h3>Datos no proyectados(Tiempo Real): {{datos_perdidos}}</h3>
         </template>
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
