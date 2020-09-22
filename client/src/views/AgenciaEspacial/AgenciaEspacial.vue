@@ -71,7 +71,10 @@
         </v-row>
       </v-col>
     </v-row>
-    <h1 v-show="same_date" style="color: red;">Exa no esta actualizada</h1>
+    <h3
+      v-show="same_date"
+      style="color: red;"
+    >Nuestra Plataforma no muestra datos actualizados, debido que EXA dejo de proyectar sus datos en tiempo real a partir de las (reloj de exa) . Se mostrará los datos actualizado en horas posteriores.</h3>
     <v-card class="rounded-lg" tile>
       <v-list-item two-line>
         <v-list-item-content>
