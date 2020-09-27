@@ -406,11 +406,13 @@ export default {
   computed: {
     datos_perdidos() {
       const data = this.$store.getters["agencia/agencia_page_get"];
+      const cells = _.head(data) ? _.head(data).headers.length : 0;
+
       const duration = moment.duration(
         moment(this.end_date).diff(this.initial_date)
       );
       const hours = duration.asHours() - data.length;
-      return hours;
+      return hours * cells;
     },
     same_date() {
       const data = this.$store.getters["agencia/same_data"];
