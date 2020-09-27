@@ -1,5 +1,5 @@
 <template>
-  <div name="AgenciaEspacial" style="margin: 15px;">
+  <div name="AgenciaEspacial" style="margin: 15px">
     <v-row class="mb-6">
       <v-col class="pa-2">
         <v-menu
@@ -23,7 +23,10 @@
           </template>
           <v-date-picker
             v-model="initial_date"
-            @input="$refs.menu_initial_date.save(initial_date); menu_initial_date = false"
+            @input="
+              $refs.menu_initial_date.save(initial_date);
+              menu_initial_date = false;
+            "
           >
             <v-spacer></v-spacer>
           </v-date-picker>
@@ -51,7 +54,10 @@
           </template>
           <v-date-picker
             v-model="end_date"
-            @input="$refs.menu_end_date.save(end_date); menu_end_date = false"
+            @input="
+              $refs.menu_end_date.save(end_date);
+              menu_end_date = false;
+            "
           >
             <v-spacer></v-spacer>
           </v-date-picker>
@@ -71,20 +77,27 @@
         </v-row>
       </v-col>
     </v-row>
-    <h3
-      v-show="same_date"
-      style="color: red;"
-    >Nuestra Plataforma no muestra datos actualizados, debido que EXA dejo de proyectar sus datos en tiempo real a partir de las (reloj de exa) . Se mostrará los datos actualizado en horas posteriores.</h3>
+    <h3 v-show="same_date" style="color: red">
+      Nuestra Plataforma no muestra datos actualizados, debido que EXA dejo de
+      proyectar sus datos en tiempo real a partir de las (reloj de exa) . Se
+      mostrará los datos actualizado en horas posteriores.
+    </h3>
     <v-card class="rounded-lg" tile>
       <v-list-item two-line>
         <v-list-item-content>
-          <v-list-item-title>Climatológica EXA-ISS-1, Guayaquil</v-list-item-title>
-          <v-list-item-subtitle>{{ end_date | moment("dddd, MMMM Do YYYY") }}</v-list-item-subtitle>
+          <v-list-item-title
+            >Climatológica EXA-ISS-1, Guayaquil</v-list-item-title
+          >
+          <v-list-item-subtitle>{{
+            end_date | moment("dddd, MMMM Do YYYY")
+          }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-card-text>
         <v-row align="center">
-          <v-col class="display-3" cols="6">{{resume.temperatura_inst}}&deg;C</v-col>
+          <v-col class="display-3" cols="6"
+            >{{ resume.temperatura_inst }}&deg;C</v-col
+          >
           <v-col cols="6">
             <v-img
               src="https://cdn.vuetifyjs.com/images/cards/sun.png"
@@ -104,9 +117,11 @@
               </v-list-item-icon>
               <v-list-item-title>Temperatura Max/Min</v-list-item-title>
 
-              <v-list-item-subtitle
-                class="text-right"
-              >{{resume.temperatura_min}}/{{resume.temperatura_max}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right"
+                >{{ resume.temperatura_min }}/{{
+                  resume.temperatura_max
+                }}</v-list-item-subtitle
+              >
             </v-list-item>
           </v-col>
           <v-col cols="18" sm="6">
@@ -116,7 +131,9 @@
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Humedad instantanea (%)</v-list-item-title>
-              <v-list-item-subtitle class="text-right">{{resume.humedad_inst}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right">{{
+                resume.humedad_inst
+              }}</v-list-item-subtitle>
             </v-list-item>
           </v-col>
         </v-row>
@@ -128,7 +145,11 @@
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Humedad Max/Min</v-list-item-title>
-              <v-list-item-subtitle class="text-right">{{resume.humedad_max}}/{{resume.humedad_min}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right"
+                >{{ resume.humedad_max }}/{{
+                  resume.humedad_min
+                }}</v-list-item-subtitle
+              >
             </v-list-item>
           </v-col>
           <v-col cols="18" sm="6">
@@ -138,7 +159,11 @@
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
               <v-list-item-title>PDC mín/máx</v-list-item-title>
-              <v-list-item-subtitle class="text-right">{{resume.minimo_pdc}}/{{resume.maximo_pdc}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right"
+                >{{ resume.minimo_pdc }}/{{
+                  resume.maximo_pdc
+                }}</v-list-item-subtitle
+              >
             </v-list-item>
           </v-col>
         </v-row>
@@ -150,7 +175,9 @@
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Presión (mm)</v-list-item-title>
-              <v-list-item-subtitle class="text-right">{{resume.presion_atm}}</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right">{{
+                resume.presion_atm
+              }}</v-list-item-subtitle>
             </v-list-item>
           </v-col>
           <v-col cols="18" sm="6">
@@ -161,7 +188,9 @@
               </v-list-item-icon>
               <v-list-item-title>Índice de radiación UV</v-list-item-title>
               <img src="@/assets/uviscale.png" width="200" height="30" />
-              <v-list-item-subtitle class="text-right">{{resume.indice_radiacion_uv}} de 10</v-list-item-subtitle>
+              <v-list-item-subtitle class="text-right"
+                >{{ resume.indice_radiacion_uv }} de 10</v-list-item-subtitle
+              >
             </v-list-item>
           </v-col>
         </v-row>
@@ -181,7 +210,10 @@
         </v-col>
         <v-col cols="18" sm="6">
           <v-card-title>Humedad instantánea</v-card-title>
-          <line-chart :chartData="humedad_instantanea_data" :options="humedad_instantanea_options" />
+          <line-chart
+            :chartData="humedad_instantanea_data"
+            :options="humedad_instantanea_options"
+          />
         </v-col>
       </v-row>
       <v-row>
@@ -196,12 +228,21 @@
         </v-col>
         <v-col cols="18" sm="6">
           <v-card-title>Índice de radiación UV instantanea</v-card-title>
-          <line-chart :chartData="uv_instantanea_data" :options="uv_instantanea_options" />
+          <line-chart
+            :chartData="uv_instantanea_data"
+            :options="uv_instantanea_options"
+          />
         </v-col>
       </v-row>
     </v-container>
     <v-container fluid>
-      <v-data-table :headers="headers" :items="data" :items-per-page="10" class="elevation-1">
+      <h3>Datos no proyectados(Tiempo Real): {{ datos_perdidos }}</h3>
+      <v-data-table
+        :headers="headers"
+        :items="data"
+        :items-per-page="10"
+        class="elevation-1"
+      >
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
         </template>
@@ -214,7 +255,6 @@
 import moment from "moment";
 import _ from "lodash";
 import Papa from "papaparse";
-// import data from "./data.json"
 import LineChart from "../../components/charts/LineChart";
 export default {
   name: "AgenciaEspacial",
@@ -364,11 +404,17 @@ export default {
     },
   },
   computed: {
+    datos_perdidos() {
+      const data = this.$store.getters["agencia/agencia_page_get"];
+      const duration = moment.duration(
+        moment(this.end_date).diff(this.initial_date)
+      );
+      const hours = duration.asHours() - data.length;
+      return hours;
+    },
     same_date() {
       const data = this.$store.getters["agencia/same_data"];
-      // console.log(data);
       return data == "true" || data == true ? true : false;
-      // return
     },
     temperatura_instantanea_data() {
       const data = this.$store.getters["agencia/agencia_page_get"];

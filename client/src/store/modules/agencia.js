@@ -10,6 +10,7 @@ export default {
     is_logged: false,
     agencia_data: {},
     same_data: false,
+    datos_perdidos: 0,
   }),
 
   mutations: {
@@ -19,6 +20,9 @@ export default {
     "same_data": (state, payload) => {
       state.same_data = payload;
     },
+    "datos_perdidos": (state, payload) => {
+      state.datos_perdidos = payload
+    }
   },
   actions: {
     [types.agencia_page]: ({ commit }, payload) => {
@@ -29,6 +33,7 @@ export default {
             resolve(resp.data.data);
             commit(types.agencia_page, resp.data.data);
             commit("same_data", resp.data.same_date);
+            commit("datos_perdidos", resp.data.datos_perdidos);
           })
           .catch((err) => {
             reject(err);
@@ -43,6 +48,9 @@ export default {
     },
     "same_data": (state) => {
       return state.same_data;
+    },
+    "datos_perdidos": (state) => {
+      return state.datos_perdidos;
     },
   },
 };

@@ -190,7 +190,7 @@ module.exports = (api) => {
             $gte: init_date,
             $lt: end_date
         } }).sort( { createdAt: -1 } );
-        console.log(data)
+
         const dataClean = []
         for (const iterator of data) {
             let dataclean = {
