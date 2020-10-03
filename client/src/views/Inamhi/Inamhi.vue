@@ -15,7 +15,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="format_date_initial"
-                label="Fecha Inicial"
+                label="Start Date"
                 prepend-icon="mdi-event"
                 readonly
                 v-bind="attrs"
@@ -24,7 +24,10 @@
             </template>
             <v-date-picker
               v-model="initial_date"
-              @input="$refs.menu_initial_date.save(initial_date); menu_initial_date = false"
+              @input="
+                $refs.menu_initial_date.save(initial_date);
+                menu_initial_date = false;
+              "
             >
               <v-spacer></v-spacer>
             </v-date-picker>
@@ -43,7 +46,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="format_date_end"
-                label="Fecha Final"
+                label="End Date"
                 prepend-icon="mdi-event"
                 readonly
                 v-bind="attrs"
@@ -52,23 +55,31 @@
             </template>
             <v-date-picker
               v-model="end_date"
-              @input="$refs.menu_end_date.save(end_date); menu_end_date = false"
+              @input="
+                $refs.menu_end_date.save(end_date);
+                menu_end_date = false;
+              "
             >
               <v-spacer></v-spacer>
             </v-date-picker>
           </v-menu>
         </v-col>
         <v-col class="pa-2">
-          <v-select :items="items" label="Seleccionar" v-model="selector"></v-select>
+          <v-select :items="items" label="Select" v-model="selector"></v-select>
         </v-col>
         <v-col class="pa-2" justify="center" align="center" align-self="center">
           <!-- <v-btn small color="primary" @click="select">Buscar</v-btn> -->
           <v-row justify="center" align="center" align-self="center">
             <v-col cols="8" sm="4" md="4">
-              <v-btn small color="primary" @click="select">Buscar</v-btn>
+              <v-btn small color="primary" @click="select">Search</v-btn>
             </v-col>
             <v-col cols="8" sm="4" md="4">
-              <v-btn color="blue" class="ma-2 white--text" fab @click="download">
+              <v-btn
+                color="blue"
+                class="ma-2 white--text"
+                fab
+                @click="download"
+              >
                 <v-icon dark>mdi-cloud-download</v-icon>
               </v-btn>
             </v-col>
@@ -78,13 +89,17 @@
       <v-card class="rounded-lg" tile>
         <v-list-item two-line>
           <v-list-item-content>
-            <v-list-item-title>{{this.selector.name}}</v-list-item-title>
-            <v-list-item-subtitle>{{ end_date | moment("dddd, MMMM Do YYYY") }}</v-list-item-subtitle>
+            <v-list-item-title>{{ this.selector.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{
+              end_date | moment("dddd, MMMM Do YYYY")
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-card-text>
           <v-row align="center">
-            <v-col class="display-3" cols="6">{{resume.temperatura_inst}}&deg;C</v-col>
+            <v-col class="display-3" cols="6"
+              >{{ resume.temperatura_inst }}&deg;C</v-col
+            >
             <v-col cols="6">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/cards/sun.png"
@@ -102,11 +117,13 @@
                 <v-list-item-icon>
                   <v-icon>mdi-white-balance-sunny</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Temperatura Max/Min</v-list-item-title>
+                <v-list-item-title>Temperature Max/Min</v-list-item-title>
 
-                <v-list-item-subtitle
-                  class="text-right"
-                >{{resume.temperatura_min}}/{{resume.temperatura_max}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-right"
+                  >{{ resume.temperatura_min }}/{{
+                    resume.temperatura_max
+                  }}</v-list-item-subtitle
+                >
               </v-list-item>
             </v-col>
             <v-col cols="18" sm="6">
@@ -115,32 +132,10 @@
                 <v-list-item-icon>
                   <v-icon>mdi-white-balance-sunny</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Humedad instantanea (%)</v-list-item-title>
-                <v-list-item-subtitle class="text-right">{{resume.humedad_inst}}</v-list-item-subtitle>
-              </v-list-item>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="18" sm="6">
-              <v-divider></v-divider>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-white-balance-sunny</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>Humedad Max/Min</v-list-item-title>
-                <v-list-item-subtitle
-                  class="text-right"
-                >{{resume.humedad_max}}/{{resume.humedad_min}}</v-list-item-subtitle>
-              </v-list-item>
-            </v-col>
-            <v-col cols="18" sm="6">
-              <v-divider></v-divider>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-white-balance-sunny</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>Precipitación (mm)</v-list-item-title>
-                <v-list-item-subtitle class="text-right">{{resume.precipitacion}}</v-list-item-subtitle>
+                <v-list-item-title>Instant Humidity (%)</v-list-item-title>
+                <v-list-item-subtitle class="text-right">{{
+                  resume.humedad_inst
+                }}</v-list-item-subtitle>
               </v-list-item>
             </v-col>
           </v-row>
@@ -151,8 +146,12 @@
                 <v-list-item-icon>
                   <v-icon>mdi-white-balance-sunny</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Presión (mm)</v-list-item-title>
-                <v-list-item-subtitle class="text-right">{{resume.presion_atm}}</v-list-item-subtitle>
+                <v-list-item-title>Humidity Max/Min</v-list-item-title>
+                <v-list-item-subtitle class="text-right"
+                  >{{ resume.humedad_max }}/{{
+                    resume.humedad_min
+                  }}</v-list-item-subtitle
+                >
               </v-list-item>
             </v-col>
             <v-col cols="18" sm="6">
@@ -161,8 +160,10 @@
                 <v-list-item-icon>
                   <v-icon>mdi-white-balance-sunny</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Velocidad viento (m/s)</v-list-item-title>
-                <v-list-item-subtitle class="text-right">{{resume.velocidad_viento}}</v-list-item-subtitle>
+                <v-list-item-title>Precipitation (mm)</v-list-item-title>
+                <v-list-item-subtitle class="text-right">{{
+                  resume.precipitacion
+                }}</v-list-item-subtitle>
               </v-list-item>
             </v-col>
           </v-row>
@@ -173,8 +174,36 @@
                 <v-list-item-icon>
                   <v-icon>mdi-white-balance-sunny</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Dirección viento</v-list-item-title>
-                <v-list-item-subtitle class="text-right">{{resume.direccion_viento}}</v-list-item-subtitle>
+                <v-list-item-title>Presure (mm)</v-list-item-title>
+                <v-list-item-subtitle class="text-right">{{
+                  resume.presion_atm
+                }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+            <v-col cols="18" sm="6">
+              <v-divider></v-divider>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-white-balance-sunny</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Wind Speed(m/s)</v-list-item-title>
+                <v-list-item-subtitle class="text-right">{{
+                  resume.velocidad_viento
+                }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="18" sm="6">
+              <v-divider></v-divider>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-white-balance-sunny</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Wind direction</v-list-item-title>
+                <v-list-item-subtitle class="text-right">{{
+                  resume.direccion_viento
+                }}</v-list-item-subtitle>
               </v-list-item>
             </v-col>
             <v-col cols="18" sm="6"></v-col>
@@ -186,7 +215,7 @@
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
-              <v-card-title>Presión Atmosférica</v-card-title>
+              <v-card-title>Atmospheric Pressure</v-card-title>
               <line-chart
                 :chartData="presion_atmosferica_data"
                 :options="presion_atmosferica_options"
@@ -195,7 +224,7 @@
           </v-col>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
-              <v-card-title>Humedad Relativa del aire</v-card-title>
+              <v-card-title>Relative Humidity of air</v-card-title>
               <line-chart
                 :chartData="humedad_relativa_aire_data"
                 :options="humedad_relativa_aire_options"
@@ -208,8 +237,11 @@
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
-              <v-card-title>Temperatura Aire</v-card-title>
-              <line-chart :chartData="temperatura_aire_data" :options="temperatura_options" />
+              <v-card-title>Air Temperature</v-card-title>
+              <line-chart
+                :chartData="temperatura_aire_data"
+                :options="temperatura_options"
+              />
             </v-card>
           </v-col>
           <v-col cols="18" sm="6"></v-col>
@@ -219,8 +251,11 @@
         <v-row>
           <v-col cols="18" sm="6">
             <v-card class="rounded-lg" tile>
-              <v-card-title>NIVEL DEL AGUA</v-card-title>
-              <bar-chart :chartData="nive_agua_data" :options="nive_agua_options" />
+              <v-card-title>Water Level</v-card-title>
+              <bar-chart
+                :chartData="nive_agua_data"
+                :options="nive_agua_options"
+              />
             </v-card>
           </v-col>
           <v-col cols="18" sm="6"></v-col>
@@ -233,10 +268,10 @@
         :items="data"
         :items-per-page="10"
         class="elevation-1"
-        style="margin-top: 40px;"
+        style="margin-top: 40px"
       >
         <template v-slot:top>
-          <h3>Datos no proyectados(Tiempo Real): {{datos_perdidos}}</h3>
+          <h3>Undated Data (Real Time): {{ datos_perdidos }}</h3>
         </template>
         <template v-slot:item.fecha="{ item }">
           <v-chip dark>{{ item.fecha | moment("DD/MM, h a") }}</v-chip>
@@ -274,18 +309,17 @@ export default {
       const csv = Papa.unparse(
         {
           fields: [
-            "FECHA HORA (GMT-5)",
-            "HUMEDAD RELATIVA DEL AIRE (%) INST",
-            "HUMEDAD RELATIVA DEL AIRE (%) MAX",
-            "HUMEDAD RELATIVA DEL AIRE (%) MIN",
-            "PRECIPITACION (mm) SUM",
-            "PRESION ATMOSFERICA (hPa) INST",
-            "TEMPERATURA AIRE (°C) INST",
-            "TEMPERATURA AIRE (°C) MAX",
-            "TEMPERATURA AIRE (°C) MIN",
-            "VIENTO DIRECCION INST",
-            "VIENTO VELOCIDAD (m/s) INST",
-            "PRESION ATMOSFERICA",
+            "Date - Time (GMT-5)",
+            "Relative Humidity of air (%) INST",
+            "Relative Humidity of air (%) MAX",
+            "Relative Humidity of air (%) MIN",
+            "Precipitation (mm) SUM",
+            "Atmospheric Pressure (hPa) INST",
+            "Air Temperature (°C) INST",
+            "Air Temperature (°C) MAX",
+            "Air Temperature (°C) MIN",
+            "Wind direction INST",
+            "Wind Speed (m/s) INST",
           ],
           data: cleanData,
         },
@@ -306,7 +340,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Presión Atmosférica",
+            label: "Atmospheric Pressure",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
             data: _.reverse(data),
@@ -320,7 +354,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Precipitación (mm)",
+            label: "Precipitation (mm)",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data: _.reverse(data),
@@ -348,21 +382,21 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "HUMEDAD RELATIVA DEL AIRE (%) INST",
+            label: "Relative Humidity of air (%) INST",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
             data: _.reverse(datacharinst),
             fill: false,
           },
           {
-            label: "HUMEDAD RELATIVA DEL AIRE (%) MAX",
+            label: "Relative Humidity of air (%) MAX",
             backgroundColor: "#ff6384",
             borderColor: "#ff6384",
             data: _.reverse(datacharmax),
             fill: false,
           },
           {
-            label: "HUMEDAD RELATIVA DEL AIRE (%) MIN",
+            label: "Relative Humidity of air (%) MIN",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data: _.reverse(datacharmin),
@@ -376,21 +410,21 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "TEMPERATURA AIRE (°C) INST",
+            label: "Air Temperature (°C) INST",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
             data: _.reverse(datacharinst),
             fill: false,
           },
           {
-            label: "TEMPERATURA AIRE (°C) MAX",
+            label: "Air Temperature (°C) MAX",
             backgroundColor: "#ff6384",
             borderColor: "#ff6384",
             data: _.reverse(datacharmax),
             fill: false,
           },
           {
-            label: "TEMPERATURA AIRE (°C) MIN",
+            label: "Air Temperature (°C) MIN",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data: _.reverse(datacharmin),
@@ -631,17 +665,17 @@ export default {
       const data = this.$store.getters["inamhi/inamhi_page_get"];
       const parse = [];
       const text_headers = [
-        "FECHA HORA (GMT-5)",
-        "HUMEDAD RELATIVA DEL AIRE (%) INST",
-        "HUMEDAD RELATIVA DEL AIRE (%) MAX",
-        "HUMEDAD RELATIVA DEL AIRE (%) MIN",
-        "PRECIPITACION (mm) SUM",
-        "PRESION ATMOSFERICA (hPa) INST",
-        "TEMPERATURA AIRE (°C) INST",
-        "TEMPERATURA AIRE (°C) MAX",
-        "TEMPERATURA AIRE (°C) MIN",
-        "VIENTO DIRECCION INST",
-        "VIENTO VELOCIDAD (m/s) INST",
+        "Date - Time (GMT-5)",
+        "Relative Humidity of air (%) INST",
+        "Relative Humidity of air (%) MAX",
+        "Relative Humidity of air (%) MIN",
+        "Precipitation (mm) SUM",
+        "Atmospheric Pressure (hPa) INST",
+        "Air Temperature (°C) INST",
+        "Air Temperature (°C) MAX",
+        "Air Temperature (°C) MIN",
+        "Wind direction INST",
+        "Wind Speed (m/s) INST",
       ];
       let cont = 0;
       if (!data[0]) {

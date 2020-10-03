@@ -2,9 +2,9 @@
   <div id="Landing">
     <v-main center>
       <v-card color="#00BCEC" class="text-center">
-        <v-row align="center" justify="center" style="padding: 20px;">
+        <v-row align="center" justify="center" style="padding: 20px">
           <v-col>
-            <h1>{{titulo}}</h1>
+            <h1>{{ titulo }}</h1>
           </v-col>
         </v-row>
       </v-card>
@@ -16,12 +16,19 @@
       <v-main class="container">
         <v-card color="basil">
           <v-card-title class="text-center justify-center py-6">
-            <h1 class="font-weight-bold display-2 basil--text">{{titulo_tab}}</h1>
+            <h1 class="font-weight-bold display-2 basil--text">
+              {{ titulo_tab }}
+            </h1>
           </v-card-title>
 
-          <v-tabs background-color="transparent" color="basil" grow v-model="tab">
-            <v-tab>{{titulo_tab_1}}</v-tab>
-            <v-tab>{{titulo_tab_2}}</v-tab>
+          <v-tabs
+            background-color="transparent"
+            color="basil"
+            grow
+            v-model="tab"
+          >
+            <v-tab>{{ titulo_tab_1 }}</v-tab>
+            <v-tab>{{ titulo_tab_2 }}</v-tab>
           </v-tabs>
 
           <v-tabs-items v-model="tab">
@@ -29,14 +36,14 @@
               <v-card color="basil" flat>
                 <!-- <img width="100%"/> -->
                 <v-card-text>
-                  <h2>{{texto_tab_1}}</h2>
+                  <h2>{{ texto_tab_1 }}</h2>
                 </v-card-text>
               </v-card>
             </v-tab-item>
             <v-tab-item>
               <v-card color="basil" flat>
                 <v-card-text>
-                  <h2>{{texto_tab_2}}</h2>
+                  <h2>{{ texto_tab_2 }}</h2>
                 </v-card-text>
               </v-card>
             </v-tab-item>
@@ -68,7 +75,7 @@
       bottom
       temporary
       heigth="100px"
-      style="max-height: 600px;"
+      style="max-height: 600px"
     >
       <v-list nav dense>
         <v-list-item-group active-class="deep-purple--text text--accent-4">
@@ -79,21 +86,33 @@
           </v-list-item>
 
           <v-list-item>
-            <v-text-field label="Titulo Tab" v-model="titulo_tab"></v-text-field>
+            <v-text-field
+              label="Titulo Tab"
+              v-model="titulo_tab"
+            ></v-text-field>
           </v-list-item>
 
           <v-list-item>
             <v-list-item-title>
-              <v-text-field label="Titulo Tab 1" v-model="titulo_tab_1"></v-text-field>
+              <v-text-field
+                label="Titulo Tab 1"
+                v-model="titulo_tab_1"
+              ></v-text-field>
             </v-list-item-title>
           </v-list-item>
 
           <v-list-item>
-            <v-text-field label="Titulo Tab 2" v-model="titulo_tab_2"></v-text-field>
+            <v-text-field
+              label="Titulo Tab 2"
+              v-model="titulo_tab_2"
+            ></v-text-field>
           </v-list-item>
 
           <v-list-item>
-            <v-text-field label="Titulo Tab 2" v-model="titulo_tab_2"></v-text-field>
+            <v-text-field
+              label="Titulo Tab 2"
+              v-model="titulo_tab_2"
+            ></v-text-field>
           </v-list-item>
           <v-list-item>
             <v-textarea label="Texto Tab 1" v-model="texto_tab_1"></v-textarea>

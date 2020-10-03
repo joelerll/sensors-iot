@@ -14,7 +14,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="format_date_initial"
-              label="Fecha Inicial"
+              label="Start Date"
               prepend-icon="mdi-event"
               readonly
               v-bind="attrs"
@@ -45,7 +45,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="format_date_end"
-              label="Fecha Final"
+              label="End Date"
               prepend-icon="mdi-event"
               readonly
               v-bind="attrs"
@@ -67,7 +67,7 @@
         <!-- <v-btn small color="primary" @click="select">Buscar</v-btn> -->
         <v-row justify="center" align="center" align-self="center">
           <v-col cols="8" sm="4" md="4">
-            <v-btn small color="primary" @click="getData">Buscar</v-btn>
+            <v-btn small color="primary" @click="getData">Search</v-btn>
           </v-col>
           <v-col cols="8" sm="4" md="4">
             <v-btn color="blue" class="ma-2 white--text" fab @click="download">
@@ -78,15 +78,15 @@
       </v-col>
     </v-row>
     <h3 v-show="same_date" style="color: red">
-      Nuestra Plataforma no muestra datos actualizados, debido que EXA dejo de
-      proyectar sus datos en tiempo real a partir de las (reloj de exa) . Se
-      mostrará los datos actualizado en horas posteriores.
+      Our platform does not show updated data, because the EXA stopped
+      projecting its data in real time from the
+      {{ same_date }} . The updated data will be shown in later hours.
     </h3>
     <v-card class="rounded-lg" tile>
       <v-list-item two-line>
         <v-list-item-content>
           <v-list-item-title
-            >Climatológica EXA-ISS-1, Guayaquil</v-list-item-title
+            >Climatological EXA-ISS-1, Guayaquil</v-list-item-title
           >
           <v-list-item-subtitle>{{
             end_date | moment("dddd, MMMM Do YYYY")
@@ -115,7 +115,7 @@
               <v-list-item-icon>
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Temperatura Max/Min</v-list-item-title>
+              <v-list-item-title>Temperature Max/Min</v-list-item-title>
 
               <v-list-item-subtitle class="text-right"
                 >{{ resume.temperatura_min }}/{{
@@ -130,7 +130,7 @@
               <v-list-item-icon>
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Humedad instantanea (%)</v-list-item-title>
+              <v-list-item-title>Instant Humidity (%)</v-list-item-title>
               <v-list-item-subtitle class="text-right">{{
                 resume.humedad_inst
               }}</v-list-item-subtitle>
@@ -144,7 +144,7 @@
               <v-list-item-icon>
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Humedad Max/Min</v-list-item-title>
+              <v-list-item-title>Humidity Max/Min</v-list-item-title>
               <v-list-item-subtitle class="text-right"
                 >{{ resume.humedad_max }}/{{
                   resume.humedad_min
@@ -174,7 +174,7 @@
               <v-list-item-icon>
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Presión (mm)</v-list-item-title>
+              <v-list-item-title>Presure (mm)</v-list-item-title>
               <v-list-item-subtitle class="text-right">{{
                 resume.presion_atm
               }}</v-list-item-subtitle>
@@ -186,7 +186,7 @@
               <v-list-item-icon>
                 <v-icon>mdi-white-balance-sunny</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Índice de radiación UV</v-list-item-title>
+              <v-list-item-title>UV Radiation Index</v-list-item-title>
               <img src="@/assets/uviscale.png" width="200" height="30" />
               <v-list-item-subtitle class="text-right"
                 >{{ resume.indice_radiacion_uv }} de 10</v-list-item-subtitle
@@ -201,7 +201,7 @@
       <v-row>
         <v-col cols="18" sm="6">
           <v-card class="rounded-lg" tile>
-            <v-card-title>Temperatura instantánea</v-card-title>
+            <v-card-title>Instant Temperature</v-card-title>
             <line-chart
               :chartData="temperatura_instantanea_data"
               :options="temperatura_instantanea_options"
@@ -209,7 +209,7 @@
           </v-card>
         </v-col>
         <v-col cols="18" sm="6">
-          <v-card-title>Humedad instantánea</v-card-title>
+          <v-card-title>Instant Humidity</v-card-title>
           <line-chart
             :chartData="humedad_instantanea_data"
             :options="humedad_instantanea_options"
@@ -219,7 +219,7 @@
       <v-row>
         <v-col cols="18" sm="6">
           <v-card class="rounded-lg" tile>
-            <v-card-title>Punto de condensación instantánea</v-card-title>
+            <v-card-title>Instant Condensation Point</v-card-title>
             <line-chart
               :chartData="punto_condensacion_instantanea_data"
               :options="punto_condensacion_options"
@@ -227,7 +227,7 @@
           </v-card>
         </v-col>
         <v-col cols="18" sm="6">
-          <v-card-title>Índice de radiación UV instantanea</v-card-title>
+          <v-card-title>Instant UV Radiation Index</v-card-title>
           <line-chart
             :chartData="uv_instantanea_data"
             :options="uv_instantanea_options"
@@ -236,7 +236,7 @@
       </v-row>
     </v-container>
     <v-container fluid>
-      <h3>Datos no proyectados(Tiempo Real): {{ datos_perdidos }}</h3>
+      <h3>Undated Data (Real Time): {{ datos_perdidos }}</h3>
       <v-data-table
         :headers="headers"
         :items="data"
@@ -351,7 +351,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Temperatura Instantanea",
+            label: "Instant Temperature",
             backgroundColor: "#ffce56",
             borderColor: "#ffce56",
             data: _.reverse(data),
@@ -365,7 +365,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Humedad Instantanea",
+            label: "Instant Humidity",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data: _.reverse(data),
@@ -379,7 +379,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Punto Condensación",
+            label: "Condensation Point",
             backgroundColor: "#ff6384",
             borderColor: "#ff6384",
             data: _.reverse(data),
@@ -393,7 +393,7 @@ export default {
         labels: _.reverse(labels),
         datasets: [
           {
-            label: "Índice de radiación UV instantanea",
+            label: "Instant UV Radiation Index",
             backgroundColor: "#36a2eb",
             borderColor: "#36a2eb",
             data: _.reverse(data),
@@ -416,7 +416,9 @@ export default {
     },
     same_date() {
       const data = this.$store.getters["agencia/same_data"];
-      return data == "true" || data == true ? true : false;
+      return data == "false" || data == false || _.isEmpty(data) || data == null
+        ? false
+        : data;
     },
     temperatura_instantanea_data() {
       const data = this.$store.getters["agencia/agencia_page_get"];
@@ -551,7 +553,7 @@ export default {
     },
     headers() {
       const data = this.$store.getters["agencia/agencia_page_get"];
-      const parse = [];
+      let parse = [];
       let cont = 0;
       if (!data[0]) {
         return [];
@@ -565,12 +567,120 @@ export default {
           cont++;
           continue;
         }
+        console.log(head);
         parse.push({
           text: head,
           value: head,
         });
         cont++;
       }
+      parse = [
+        {
+          text: "Date",
+          value: "fecha",
+        },
+        {
+          text: "Temperature (C) INST",
+          value: "TEMPERATURA (C) INST",
+        },
+        {
+          text: "Temperature (C) MAX",
+          value: "TEMPERATURA (C) MAX",
+        },
+        {
+          text: "Temperature (C) MIN",
+          value: "TEMPERATURA (C) MIN",
+        },
+        {
+          text: "Humidity (%) INST",
+          value: "HUMEDAD (%) INST",
+        },
+        {
+          text: "Humidity (%) MAX",
+          value: "HUMEDAD (%) MAX",
+        },
+        {
+          text: "Humidity (%) MIN",
+          value: "HUMEDAD (%) MIN",
+        },
+        {
+          text: "Condensation Point (C) INST",
+          value: "PUNTO DE CONDENSASIÓN (C) INST",
+        },
+        {
+          text: "Condensation Point (C) MAX",
+          value: "PUNTO DE CONDENSASIÓN (C) MAX",
+        },
+        {
+          text: "Condensation Point (C) MIN",
+          value: "PUNTO DE CONDENSASIÓN (C) MIN",
+        },
+        {
+          text: "Atmospheric Pressure",
+          value: "PRESIÓN ATMOSFÉRICA",
+        },
+        {
+          text: "Rain Today",
+          value: "LLUVIA HOY",
+        },
+        {
+          text: "Rain Rate",
+          value: "TASA DE LLUVIA",
+        },
+        {
+          text: "Total Storm",
+          value: "TOTAL TORMENTA",
+        },
+        {
+          text: "Monthly Rain",
+          value: "LLUVIA MENSUAL",
+        },
+        {
+          text: "Annual Rain",
+          value: "LLUVIA ANUAL",
+        },
+        {
+          text: "Thermal Feeling of the Wind",
+          value: "SENSACIÓN TÉRMICA DEL VIENTO",
+        },
+        {
+          text: "Temperature-Humidity-Wind Index",
+          value: "ÍNDICE TEMPERATURA-HUMEDAD-VIENTO",
+        },
+        {
+          text: "Heat Index",
+          value: "ÍNDICE DE CALOR",
+        },
+        {
+          text: "UV Radiation Index",
+          value: "ÍNDICE DE RADIACIÓN UV",
+        },
+        {
+          text: "Solar Radiation",
+          value: "RADIACIÓN SOLAR",
+        },
+        {
+          text: "Maximum Rain Rate",
+          value: "MÁXIMA TASA DE LLUVIA",
+        },
+        {
+          text: "Minimum STV",
+          value: "MÍNIMA STV",
+        },
+        {
+          text: "Maximum Heat Index",
+          value: "MÁXIMA ÍNDICE DE CALOR",
+        },
+        {
+          text: "Maximum UV",
+          value: "Máximo UV",
+        },
+        {
+          text: "Maximum Solar Radiation",
+          value: "MÁXIMA RADIACIÓN SOLAR",
+        },
+      ];
+      console.log(parse);
       return parse;
     },
     humedad_relativa_aire_data() {
@@ -652,7 +762,7 @@ export default {
         responsive: true,
         title: {
           display: false,
-          text: "Temperatura instantánea",
+          text: "Instant Temperature",
         },
         tooltips: {
           mode: "index",
@@ -677,7 +787,7 @@ export default {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Temperatura instantánea",
+                labelString: "Instant Temperature",
               },
             },
           ],
@@ -687,7 +797,7 @@ export default {
         responsive: true,
         title: {
           display: false,
-          text: "Humedad instantánea",
+          text: "Instant Humidity",
         },
         tooltips: {
           mode: "index",
@@ -712,7 +822,7 @@ export default {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Humedad instantánea",
+                labelString: "Instant Humidity",
               },
             },
           ],
@@ -722,7 +832,7 @@ export default {
         responsive: true,
         title: {
           display: false,
-          text: "Punto de condensación instantánea",
+          text: "Instant Condensation Point",
         },
         tooltips: {
           mode: "index",
@@ -747,7 +857,7 @@ export default {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Punto de condensación instantánea",
+                labelString: "Instant Condensation Point",
               },
             },
           ],
@@ -757,7 +867,7 @@ export default {
         responsive: true,
         title: {
           display: false,
-          text: "Índice de radiación UV instantanea",
+          text: "Instant UV Radiation Index",
         },
         tooltips: {
           mode: "index",
@@ -782,7 +892,7 @@ export default {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Índice de radiación UV instantanea",
+                labelString: "Instant UV Radiation Index",
               },
             },
           ],
