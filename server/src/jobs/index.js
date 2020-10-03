@@ -93,7 +93,7 @@ module.exports = {
                 console.log(new_cell)
                 console.log(last)
                 console.log("==== same date")
-                await DB.Redis.Set("same_date", true)
+                await DB.Redis.Set("same_date", last_date)
                 return;
             }
             await DB.Redis.Set("same_date", false)
