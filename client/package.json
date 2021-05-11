@@ -13,7 +13,7 @@
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "dayjs": "^1.8.33",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "papaparse": "^5.2.0",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
